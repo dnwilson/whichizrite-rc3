@@ -1,6 +1,11 @@
 Wir2::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users do
+    get "login", :to => "devise/sessions#new"
+    get "logout", :to => "devise/sessions#destroy"
+    get "register", :to => "devise/registration#new"
+    get "delete", :to => "devise/registration#destroy"
+  end
 
   resources :pages
 

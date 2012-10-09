@@ -1,1 +1,14 @@
-<h2>Hello world</h2>
+<ul>
+	<%# if the user is logged in, show signout link%>
+	<% if current_user.present? %>
+		<li><%= link_to 'Sign out', logout_path %></li>
+	<% else %>
+		<li><%= link_to "Sign in", login_path %> | <%= link_to "Sign up", login_path %></li>
+	<% end %>
+</ul>
+
+	<% if current_user.present? %>
+		<h2>Hello world</h2>
+	<% else %>
+		
+	<% end %>
