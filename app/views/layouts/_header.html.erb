@@ -1,0 +1,25 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to image_tag("wir_logo.png", alt: "logo"), root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Home",   root_path %></li>
+
+          <% if user_signed_in? %>
+            <li id="fat-menu" class="dropdown">
+            
+                <li><%= link_to "Settings", edit_user_registration_path(current_user) %></li>
+                <li><%= link_to "Users", users_path %></li>
+                <li>
+                  <%= link_to "Sign out", logout_path, method: "delete" %>
+                </li>
+            </li>
+          <% else %>
+            <li><%= link_to "Sign in", login_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

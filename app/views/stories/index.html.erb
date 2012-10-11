@@ -1,0 +1,13 @@
+<h1>Micropost list</h1>
+
+<% @stories.each do |story| %>
+	<div>
+		<%= story.user_id %>
+		<%= story.title %>
+		<%= story.details %>
+		<%= link_to "show", story %> | 
+		<%= link_to "edit", edit_story_path(@story) %> | 
+		<%= link_to "delete", story, confirm: "Are you sure?", method: :delete %>
+
+	</div>
+<% end %>

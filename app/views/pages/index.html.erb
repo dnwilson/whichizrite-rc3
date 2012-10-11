@@ -1,14 +1,21 @@
-<ul>
-	<%# if the user is logged in, show signout link%>
-	<% if current_user.present? %>
-		<li><%= link_to 'Sign out', logout_path %></li>
-	<% else %>
-		<li><%= link_to "Sign in", login_path %> | <%= link_to "Sign up", login_path %></li>
-	<% end %>
-</ul>
+<div class="row">
+	<div class="span3">
+		Hello World!
+	</div>
+	<div class="span9">
+		<% if signed_in?(:user) %>
+			<%= link_to "Create a new story", new_story_path %>
+			<%= render 'shared/story_form' %>			
+		<% else %>
+			Please <%= link_to "sign in", login_path %> to submit a story.
+		<% end %>
 
-	<% if current_user.present? %>
-		<h2>Hello world</h2>
-	<% else %>
-		
-	<% end %>
+		<% @stories.each do |story| %>
+			<div>
+				<a href="<%= story_path(story)%>"><%= story.title %></a><br>
+				<%= story.details %>
+			</div>
+		<% end %>
+	</div>
+</div>
+	

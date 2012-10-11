@@ -7,6 +7,9 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 gem 'devise'
+gem 'will_paginate'
+gem 'bootstrap-sass'
+gem 'annotate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,6 +24,30 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :development, :test do
+	gem 'rspec-rails'
+	gem 'guard-rspec'
+end
+
+group :test do
+	gem 'spork'
+	gem 'factory_girl_rails'
+end
+
+
+#Test gem on windows
+group :test do
+	gem 'rb-fchange'
+	gem 'rb-notifu'
+	gem 'win32console'
+	gem 'wdm', '~> 0.0.3'
+end
+
+#For Heroku
+group :production do
+	gem 'pg', '0.12.2'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
