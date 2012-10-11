@@ -6,6 +6,12 @@
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  admin                  :boolean          default(FALSE)
+#  username               :string(255)
+#  firstname              :string(255)
+#  lastname               :string(255)
+#  sex                    :string(255)
+#  dob                    :datetime
+#  bio                    :string(255)
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime

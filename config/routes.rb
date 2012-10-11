@@ -17,6 +17,7 @@ Wir2::Application.routes.draw do
   resources :users
   resources :pages
   resources :stories
+  resources :comments
   
   root :to => "pages#index"
 

@@ -3,19 +3,24 @@
 		Hello World!
 	</div>
 	<div class="span9">
-		<% if signed_in?(:user) %>
-			<%= link_to "Create a new story", new_story_path %>
-			<%= render 'shared/story_form' %>			
-		<% else %>
-			Please <%= link_to "sign in", login_path %> to submit a story.
-		<% end %>
+		<div class="row">
+			<div class="span3"></div>
+			<div class="span6">
+				<% if signed_in?(:user) %>
+					<%= link_to "Create a new story", new_story_path %>
+					<%= render 'shared/story_form' %>			
+				<% else %>
+					Please <%= link_to "sign in", login_path %> to submit a story.
+				<% end %>
 
-		<% @stories.each do |story| %>
-			<div>
-				<a href="<%= story_path(story)%>"><%= story.title %></a><br>
-				<%= story.details %>
+				<% @stories.each do |story| %>
+					<div>
+						<a href="<%= story_path(story)%>"><%= story.title %></a><br>
+						<%= story.details %>
+					</div>
+				<% end %>
 			</div>
-		<% end %>
+		</div>
 	</div>
 </div>
 	

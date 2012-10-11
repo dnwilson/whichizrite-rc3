@@ -11,12 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009013842) do
+ActiveRecord::Schema.define(:version => 20121011211234) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "story_id"
+    t.string   "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "stories", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "details"
+    t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -25,6 +33,12 @@ ActiveRecord::Schema.define(:version => 20121009013842) do
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.boolean  "admin",                  :default => false
+    t.string   "username"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "sex"
+    t.datetime "dob"
+    t.string   "bio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -39,5 +53,6 @@ ActiveRecord::Schema.define(:version => 20121009013842) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end
