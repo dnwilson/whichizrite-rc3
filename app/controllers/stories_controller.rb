@@ -4,6 +4,7 @@ class StoriesController < ApplicationController
 
 	def show
         @story = Story.find(params[:id])
+        @comment = Comment.new
 	end
 
 	def create
@@ -37,7 +38,7 @@ class StoriesController < ApplicationController
     end
 
     def destroy
-        @story = Micropost.find(params[:id])
+        @story = Story.find(params[:id])
         @story.destroy
 
         respond_to do |format|
@@ -50,4 +51,10 @@ class StoriesController < ApplicationController
         @stories = Story.all
     end
 
+    private
+
+        def correct_user
+            @story = current_user.stories.find_by_id(params[:id])
+            redirect_to root_url if @story.nil?
+        end
 end

@@ -1,6 +1,23 @@
 This is the page where stories are shown <br /><br />
 
 <%= @story.title %> <br />
-<%= @story.details %> <br />
+<%= @story.content %> <br />
 
-<%= link_to 'Edit', edit_story_path(@story) %> | <%= link_to 'Back', story_path %><br />
+<% if current_user == @story.user %> <%= link_to 'delete', @story, method: :delete %> | <% end %>
+	<%= link_to "+", votes_path(:vote => {story_id: @story.id, wir: true}), method: :post %> (<%= @story.votes.where(wir: true).count %>) | 
+	<%= link_to "-", votes_path(:vote => {story_id: @story.id, wir: false}), method: :post %> (<%= @story.votes.where(wir: false).count %>) | 
+	<%= link_to 'Edit', edit_story_path(@story) %> | <%= link_to 'Back', story_path %><br />
+
+<h2>Comments</h2>
+<% @story.comments.each do |comment| %>
+	<div>
+		<%= comment.comment %></a>
+
+		<% if current_user == comment.user || current_user == @story.user %> |
+		 	<%= link_to 'delete', comment, method: :delete %><br>
+		<% end %> 
+	</div>
+<% end %>
+
+
+<%= render 'shared/comment_form' %>

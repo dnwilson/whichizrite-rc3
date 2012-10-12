@@ -11,7 +11,7 @@
 #
 
 class Comment < ActiveRecord::Base
-  attr_accessible :comment
+  attr_accessible :comment, :story_id
 
   belongs_to :story
   belongs_to :user

@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 
   has_many :stories, dependent: :destroy
   has_many :comments
+  has_many :votes
 
   # before_save{|user| user.email = email.downcase}
 

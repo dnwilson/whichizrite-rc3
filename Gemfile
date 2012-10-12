@@ -8,8 +8,11 @@ gem 'rails', '3.2.8'
 gem 'sqlite3'
 gem 'devise'
 gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem 'bootstrap-sass'
 gem 'annotate'
+# gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
