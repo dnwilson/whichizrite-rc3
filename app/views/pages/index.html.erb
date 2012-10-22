@@ -1,29 +1,27 @@
-<div class="row">
-	<div class="span3">
-		Hello World! 
-		<% if signed_in?(:user) %>
-			<%= current_user.email %>
-		<% end %>
-	</div>
-	<div class="span9">
-		<div class="row">
-			<div class="span3"></div>
-			<div class="span6">
-				<% if signed_in?(:user) %>
-					<%= link_to "Create a new story", new_story_path %>
-					<%= render 'shared/story_form' %>			
-				<% else %>
-					Please <%= link_to "sign in", login_path %> to submit a story.
-				<% end %>
-
-				<% @stories.each do |story| %>
-					<div>
-						<a href="<%= story_path(story)%>"><%= story.title %></a><br>
-						<%= story.content %>
-					</div>
-				<% end %>
-			</div>
+<% if signed_in? %>
+	<div class="row">
+		<aside class="span4">
+			<section>
+				<%= render 'shared/story_form' %>
+			</section>
+		</aside>
+		<div class="span8">
+			<h3>Story feed</h3>
+			<%= render 'shared/feed' %>
 		</div>
 	</div>
-</div>
+<% else %>
+<div class="center row">
+	<h1>welcome to whichizrite</h1>
 	
+	<h2>
+		be heard! don't forget to download our app from itunes or the android store
+	</h2>
+
+	<p>
+		The idea is simple. Click whichizrite to approve of content and click whichizwrong if you disagree with the content. Now that you know what we are about. Click the sign up button & be heard.		
+	</p>
+
+	<%= link_to "Sign up now!", register_path, class: "btn btn-large btn-primary" %>
+</div>
+<% end %>

@@ -1,17 +1,16 @@
 Wir2::Application.routes.draw do
 
-  devise_for :users, :controllers => {:sessions => "devise/sessions", 
-                                      :registration => "devise/registration"},
+  devise_for :users, :controllers => {:sessions => "users/sessions", 
+                                      :registrations => "users/registrations"},
                      :path => '', :path_names => {:sign_in => "login", :sign_out => "logout",
-                                                  :sign_up => "register"}
+                                                  :sign_up => "register"} do
 
-                     # :skip => [:sessions, :registration]
-                     
-  devise_scope :users do
-    get "login", :to => "devise/sessions#new"
-    get "logout", :to => "devise/sessions#destroy"
-    get "register", :to => "devise/registration#new"
-    get "delete", :to => "devise/registration#destroy"
+    get "login", :to => "users/sessions#new"
+    get "logout", :to => "users/sessions#destroy"
+    get "register", :to => "users/registrations#new"
+    get "delete", :to => "users/registrations#destroy"
+    get "settings", :to => "users/registrations#edit"
+    get "settings/password", :to=> "users/registrations#password"
   end
 
   resources :users

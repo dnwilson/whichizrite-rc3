@@ -33,8 +33,21 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username,
-                  :sex, :firstname, :lastname, :dob, :bio
-  # attr_accessible :title, :body
+                  :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, :login
+
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
+  
+  has_attached_file :avatar, styles: {xsml: "30x30#", thumb: "50x50#", small: "150x150#", 
+                                      med:"500x500#", large:"1500x1500>"},
+                    default_url: "/assets/no-image.png",
+                    url:  "/assets/images/users/:id/:basename_:style.:extension",
+                    path: ":rails_root/app/assets/images/users/:id/:basename_:style.:extension"
+
+  Paperclip.interpolates :name do |attachment, style|
+    "#{attachment.instance.id}"
+  end
 
   has_many :stories, dependent: :destroy
   has_many :comments
@@ -49,9 +62,27 @@ class User < ActiveRecord::Base
   # validates :password_confirmation, presence: true
 
   # validates :username, presence: true, length: {within: 8..20}
+  
+  validates_attachment :avatar, content_type: {content_type: ["image/jpeg", "image/png", 
+                                                        "image/bmp", "image/jpg"]},
+                                size: {less_than: 5.megabytes}
+  
 
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
+### This is the correct method you override with the code above
+### def self.find_for_database_authentication(warden_conditions)
+### end 
 
   def feed
   	Story.all
   end
+
 end

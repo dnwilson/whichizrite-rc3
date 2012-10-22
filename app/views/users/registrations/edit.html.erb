@@ -1,25 +1,70 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="row">
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="edit-nav span4">
+    <ul class="nav nav-pills nav-stacked">
+      <li class="<%= 'active' if current_page?(settings_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
+      </li>
+    </ul>
+  </div>
+  <div class="user-edit span8">
+    <div class="edit-header">
+      <h2>Profile</h2>
+      <p>Keep this information accurate and up to date</p>
+    </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :method => :put, :multipart => true })  do |f| %>
+      <%= devise_error_messages! %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+    <div class="img-polaroid">
+      <% if @user.avatar.nil? %>
+        <img src="no-image.png">
+        <%= f.label :avatar %>
+        <%= f.file_field :avatar, title:"Upload" %><br />
+        maximum size of 700px (jpg, gif, png)
+      <% else %>
+        <%= avatar_for(@user, "small") %>
+        <%= f.label :avatar %>
+        <%= f.file_field :avatar, title:"Upload" %><br />
+        <p class="upload-info">maximum size of 700px (jpg, gif, png)</p>
+      <% end %>
+    </div><br />
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
 
-<h3>Cancel my account</h3>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br />
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+    <%= f.label :username %>
+    <%= f.text_field :username %><br />
 
-<%= link_to "Back", :back %>
+    <%= f.label :email %>
+    <%= f.text_field :email %><br />
+
+    <%= f.input :sex, :collection => [['Male'], ['Female']] %>
+
+    <%= f.label :website %>
+    <%= f.text_field :website %><br />
+
+    <%= f.label :bio %>
+    <%= f.text_area :bio %><br />
+
+    <%= f.label :location %>
+    <%= f.text_field :location %><br />
+
+    <%= f.label :country %>
+    <%= f.country_select :country_name %><br />
+
+    <div class="center"><%= f.submit "Update", class: "btn btn-large btn-primary" %>
+      <h3>Cancel my account</h3>
+
+      <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+    </div>
+    <% end %>
+  </div>
+</div>
