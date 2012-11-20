@@ -15,12 +15,12 @@ require 'spec_helper'
 describe Story do
 
 	let(:user){FactoryGirl.create(:user)}
-	before {@story = user.stories.build(title: "Test title", details: "Lorem ipsum")}
+	before {@story = user.stories.build(title: "Test title", content: "Lorem ipsum")}
 
 	subject{@story}
 
 	it{should respond_to(:title)}
-	it{should respond_to(:details)}
+	it{should respond_to(:content)}
 	it{should respond_to(:user_id)}
 	it{should respond_to(:user)}
 	its(:user){should == user}
@@ -41,7 +41,7 @@ describe Story do
 	end
 	
 	describe "with blank details" do
-		before{@story.details = nil}
+		before{@story.content = nil}
 		it{should_not be_valid}
 	end
 

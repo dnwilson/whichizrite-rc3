@@ -1,0 +1,21 @@
+<ol class="comments-list">
+	<% @story.comments.each do |comment| %>
+		<li id="<%= comment.id %>">
+			<div class="comment-img"><%= link_to avatar_for(comment.user, 'xsml'), comment.user %></div>
+			<div class="comment-item">
+				<%= link_to comment.user.username %>
+
+				<% if current_user == comment.user || current_user == @story.user %>
+					<span class="delete-btn">					
+					 	<%= link_to 'delete', comment, method: :delete %><br />
+					</span>
+				<% end %>
+				
+				 <div class="comment-time">
+				 	<%= time_ago_in_words(comment.created_at) %> ago.
+				 </div>				 
+				 <div class="comment-content"><%= comment.comment %></div>
+			</div>
+		</li>
+	<% end %>
+</ol>

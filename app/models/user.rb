@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  acts_as_voter
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -43,7 +45,7 @@ class User < ActiveRecord::Base
                                       med:"500x500#", large:"1500x1500>"},
                     default_url: "/assets/no-image.png",
                     url:  "/assets/images/users/:id/:basename_:style.:extension",
-                    path: ":rails_root/app/assets/images/users/:id/:basename_:style.:extension"
+                    path: ":rails_root/public/assets/images/users/:id/:basename_:style.:extension"
 
   Paperclip.interpolates :name do |attachment, style|
     "#{attachment.instance.id}"
@@ -51,7 +53,6 @@ class User < ActiveRecord::Base
 
   has_many :stories, dependent: :destroy
   has_many :comments
-  has_many :votes
 
   # before_save{|user| user.email = email.downcase}
 

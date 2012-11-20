@@ -3,8 +3,9 @@ Wir2::Application.routes.draw do
   devise_for :users, :controllers => {:sessions => "users/sessions", 
                                       :registrations => "users/registrations"},
                      :path => '', :path_names => {:sign_in => "login", :sign_out => "logout",
-                                                  :sign_up => "register"} do
+                                                  :sign_up => "register"}
 
+  devise_scope :user do
     get "login", :to => "users/sessions#new"
     get "logout", :to => "users/sessions#destroy"
     get "register", :to => "users/registrations#new"
@@ -15,11 +16,21 @@ Wir2::Application.routes.draw do
 
   resources :users
   resources :pages
-  resources :stories
+  resources :stories do
+    member do
+      get :vote_up
+      get :vote_down
+      get :unvote
+      get :comment
+    end
+  end
+
   resources :comments
   resources :votes
   
-  root :to => "pages#index"
+  root :to => "pages#home"
+
+  match '/about', to: 'pages#about'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

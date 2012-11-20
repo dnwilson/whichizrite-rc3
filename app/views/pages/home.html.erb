@@ -1,13 +1,21 @@
 <% if signed_in? %>
-	<div class="row">
+	<div class="row-fluid">
 		<aside class="span4">
-			<section>
-				<%= render 'shared/story_form' %>
-			</section>
+			<div class="update-box">
+				<section>				
+					<%= render 'shared/user_info' %>
+				</section>
+				<section class="story-form">				
+					<%= render 'shared/story_form' %>
+				</section>
+			</div>			
 		</aside>
 		<div class="span8">
-			<h3>Story feed</h3>
-			<%= render 'shared/feed' %>
+			<h1 class="feed-header">latest entries</h1>
+			<span class="ajaxreloadstories">			
+				<%= render 'shared/feed' %>
+			</span>			
+			
 		</div>
 	</div>
 <% else %>

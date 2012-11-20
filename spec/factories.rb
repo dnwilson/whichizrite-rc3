@@ -11,7 +11,7 @@ FactoryGirl.define do
 
 	factory :story do
 		title 		"Test title"
-		details		"Lorem ipsum"
+		content		"Lorem ipsum"
 		user
 	end
 end

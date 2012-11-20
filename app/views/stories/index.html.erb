@@ -1,13 +1,43 @@
-<h1>Micropost list</h1>
+<h1>Stories list</h1>
+<% if @stories.any? %>
+	<ol class="stories">
+		<% @stories.each do |story| %>
+		<li id="<%= story.id %>">
+			<span class="story-<%= story.id %>"
+				<span class="title">
+					<%= story.title %>
+				</span>
+				<span class="content">				
+					<%= story.content %>
+				</span>
+			</span>
+			<span class="input-bar">
+				<span class="vote">
+					<% if current_user.votes.where(story_id: story.id).first %>
+						<% if current_user.votes.where(story_id: story.id).first.wir? %>
 
-<% @stories.each do |story| %>
-	<div>
-		<%= story.user_id %>
-		<%= story.title %>
-		<%= story.details %>
-		<%= link_to "show", story %> | 
-		<%= link_to "edit", edit_story_path(@story) %> | 
-		<%= link_to "delete", story, confirm: "Are you sure?", method: :delete %>
+							<%= link_to votes_path(:vote => {story_id: story.id, wir: true}), :class => "wir", method: :post do %><i class="icon-wir"></i> (<%= story.votes.where(wir: true).count %>)
+								<% end %> | 
+							<%= link_to votes_path(:vote => {story_id: story.id, wir: false}), :class => "wiw", method: :post do %><i class="icon-wiw"></i> (<%= story.votes.where(wir: false).count %>)
+							<% end %> | 
+							<a href="" class="comments-btn">
+								<i class="icon-comments"></i> (20)
+							</a>
+						<% else %>
+							<%= link_to image_tag("wir_off.png", :alt => "wir"), votes_path(:vote => {story_id: story.id, wir: true}), method: :post %> (<%= story.votes.where(wir: true).count %>) | <%= link_to image_tag("wiw_on.png", :alt => "wiw"), votes_path(:vote => {story_id: story.id, wir: false}), method: :post %> (<%= story.votes.where(wir: false).count %>)				
+						<% end %>
+					<% else %>
+						<%= link_to image_tag("wir_off.png", :alt => "wir"), votes_path(:vote => {story_id: story.id, wir: true}), method: :post %> (<%= story.votes.where(wir: true).count %>) | <%= link_to image_tag("wiw_off.png", :alt => "wiw"), votes_path(:vote => {story_id: story.id, wir: false}), method: :post %> (<%= story.votes.where(wir: false).count %>)
+					<% end %>
+				</span>
+			</span>
 
-	</div>
+			<span class="timestamp">
+				<%= link_to "show", story %> | 
+				<%= link_to "delete", story, confirm: "Are you sure?", method: :delete %>
+			</span>
+		</li>
+
+	<% end %>
+	</ol>
 <% end %>

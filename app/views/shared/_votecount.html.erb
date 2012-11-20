@@ -1,0 +1,7 @@
+<% if feed_item.votes_for == feed_item.votes_against %>
+    <span class="votecount" style= "background-color:#666666"><%= feed_item.votes_for - feed_item.votes_against %></span>
+<% elsif feed_item.votes_for < feed_item.votes_against %>
+    <span class="votecount" style= "background-color:#cc0000">whichizwrong <%= feed_item.votes_against - feed_item.votes_for %></span>
+<% else %>
+	<span class="votecount" style= "background-color:#33cc00">whichizrite <%= feed_item.votes_for - feed_item.votes_against %></span>
+<% end %>

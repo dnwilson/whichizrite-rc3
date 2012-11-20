@@ -16,6 +16,8 @@ class Comment < ActiveRecord::Base
   belongs_to :story
   belongs_to :user
 
+  acts_as_voteable
+  
   validates :user_id, presence: true
   validates :story_id, presence: true
   validates :comment, presence: true

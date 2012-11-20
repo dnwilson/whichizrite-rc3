@@ -1,26 +1,12 @@
- <%= form_for(@story) do |f| %>
-  <% if @story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
-
-      <ul>
-      <% @story.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= simple_form_for(@story, remote: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, placeholder: "Title" %>
   </div>
   <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_field :content %>
+    <%= f.text_area :content, placeholder: "What do you want to say..." %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="submit">
+    <%= f.submit "Post", class: "btn btn-large btn-primary" %>
   </div>
-
 <% end %>

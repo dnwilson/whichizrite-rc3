@@ -1,23 +1,52 @@
-This is the page where stories are shown <br /><br />
+<% if signed_in? %>
+	<div class="row-fluid">
+		<div class="span8">
+			<span class="story-item">
+				<%= link_to avatar_for(@story.user, 'thumb'), @story.user %>
 
-<%= @story.title %> <br />
-<%= @story.content %> <br />
+				<span class="username">
+					<%= link_to @story.user.email, @story.user %>
+				</span>
+				<span class="delete">
+					<% if current_user?(@story.user) %>
+						<%= link_to @story, method: :delete,
+												data: {confirm: "You sure!"},
+												title:@story.content do %>
+							<i class="icon-remove"></i>
+						<% end %>
+					<% end %>
+				</span>
+				
+				<span class="content">
+					<span class="title">
+						<%= link_to @story.title, story_path(@story) %>				
+					</span>
+					<%= @story.content %>
+				</span>
 
-<% if current_user == @story.user %> <%= link_to 'delete', @story, method: :delete %> | <% end %>
-	<%= link_to "+", votes_path(:vote => {story_id: @story.id, wir: true}), method: :post %> (<%= @story.votes.where(wir: true).count %>) | 
-	<%= link_to "-", votes_path(:vote => {story_id: @story.id, wir: false}), method: :post %> (<%= @story.votes.where(wir: false).count %>) | 
-	<%= link_to 'Edit', edit_story_path(@story) %> | <%= link_to 'Back', story_path %><br />
+				<span class="input-bar">
+					<span class="vote-<%= @story.id %>">
+						<%= render partial: "shared/vote", locals: {feed_item: @story} %>		
+					</span>
+					<span class="comment-btn">
+						<%= link_to story_path(@story) do %>comments (<%= @story.comments.count %>)
+						<i class="icon-comments"></i><% end %>
+					</span>
+					<span class="timestamp">
+						Posted <%= time_ago_in_words(@story.created_at) %> ago.
+					</span>
+				</span>
+				<%= render 'shared/comments' %>
+				<span class="comment-form">
+					<%= render 'shared/comment_form' %>
+				</span>
+			</span>			
+		</div>
 
-<h2>Comments</h2>
-<% @story.comments.each do |comment| %>
-	<div>
-		<%= comment.comment %></a>
-
-		<% if current_user == comment.user || current_user == @story.user %> |
-		 	<%= link_to 'delete', comment, method: :delete %><br>
-		<% end %> 
+		<div class="span4">					
+			
+		</div>
 	</div>
+<% else %>
+	<%= render 'pages/welcome' %>
 <% end %>
-
-
-<%= render 'shared/comment_form' %>

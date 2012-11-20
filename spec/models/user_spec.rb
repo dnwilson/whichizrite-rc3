@@ -37,7 +37,66 @@ describe User do
 	it{should respond_to(:password)}
 	it{should respond_to(:password_confirmation)}
 	it{should respond_to(:admin)}
+	it{should respond_to(:username)}
+	it{should respond_to(:avatar)}
+	it{should respond_to(:sex)}
+	it{should respond_to(:name)}
+	it{should respond_to(:dob)}
+	it{should respond_to(:bio)}
+	it{should respond_to(:country_name)}
+	it{should respond_to(:website)}
+	it{should respond_to(:location)}
+	it{should respond_to(:login)}
+	it{should respond_to(:feed)}
+	it{should respond_to(:stories)}
+	it{should respond_to(:votes)}
+	it{should respond_to(:comments)}
 
 	it{should be_valid}
 	it{should_not be_admin}
+
+	describe "story associations" do
+    
+		before {@user.save}
+		let!(:older_story) do
+			FactoryGirl.create(:story, user: @user, created_at: 1.day.ago)
+		end
+		let!(:newer_story) do
+			FactoryGirl.create(:story, user: @user, created_at: 1.hour.ago)
+		end
+
+		it "should have the right stories in the right order" do
+			@user.stories.should == [newer_story, older_story]
+		end
+
+		it "should destroy associated stories" do
+			stories = @user.stories
+			@user.destroy
+			stories.each do |story|
+				Story.find_by_id(story.id).should be_nil
+			end
+		end
+
+		# describe "status" do
+		# 	let(:unfollowed_post) do
+		# 		FactoryGirl.create(:story, user: FactoryGirl.create(:user))
+		# 	end
+
+		# 	let(:followed_user) { FactoryGirl.create(:user) }
+
+		# 	before do
+		# 		@user.follow!(followed_user)
+		# 		3.times {followed_user.stories.create!(title: "Lorem ipsum", content: "Lorem ipsum")}
+		# 	end
+
+		# 	its(:feed) { should include(newer_story) }
+		# 	its(:feed) { should include(older_story) }
+		# 	its(:feed) { should_not include(unfollowed_post) }
+		# 	its(:feed) do
+		# 		followed_user.stories.each do |story|
+		# 		  should include{ story }
+		# 		end
+		# 	end
+		# end
+	end
 end

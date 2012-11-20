@@ -3,7 +3,7 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
-# require 'paperclip/matchers'
+require 'paperclip/matchers'
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -13,7 +13,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
-  #require 'capybara/rspec'
+  require 'capybara/rspec'
 
     # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -25,8 +25,8 @@ Spork.prefork do
     #config.include(MailerMacros)
     # config.before(:each) { reset_email }
 
-    # Paperclip inclusion
-    # config.include Paperclip::Shoulda::Matchers
+    #Paperclip inclusion
+    config.include Paperclip::Shoulda::Matchers
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"

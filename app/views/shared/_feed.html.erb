@@ -1,4 +1,6 @@
-<% if @feed_items.any? %>
+<% @feed_items = current_user.feed.paginate(page: params[:page]) %>
+
+<% unless @feed_items.empty? %>
 <ol class="stories">
 	<%= render partial: 'shared/feed_item', collection: @feed_items %>
 </ol>
