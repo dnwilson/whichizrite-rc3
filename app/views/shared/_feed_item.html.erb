@@ -20,6 +20,12 @@
 				<%= link_to feed_item.title, story_path(feed_item) %>			
 			</span>
 
+			<% if feed_item.content_image? %>
+				<span class="story-image">
+					<%= image_tag feed_item.content_image.url(:small) %>
+				</span>
+			<% end %>
+
 			<%= feed_item.content %>
 		</span>
 	</span>

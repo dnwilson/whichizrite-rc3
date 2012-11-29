@@ -56,13 +56,13 @@ class StoriesController < ApplicationController
         end 
     end
 
-    def index
-        @stories = Story.all
-    end
+    # def index
+    #     @stories = Story.all
+    # end
 
-    def edit
-        @story = Story.find(params[:id])
-    end
+    # def edit
+    #     @story = Story.find(params[:id])
+    # end
 
     def destroy
         @story = Story.find(params[:id])

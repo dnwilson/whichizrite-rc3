@@ -12,9 +12,15 @@ Wir2::Application.routes.draw do
     get "delete", :to => "users/registrations#destroy"
     get "settings", :to => "users/registrations#edit"
     get "settings/password", :to=> "users/registrations#password"
+    get "profile", :to =>  "users#show"
   end
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  
   resources :pages
   resources :stories do
     member do
@@ -27,6 +33,7 @@ Wir2::Application.routes.draw do
 
   resources :comments
   resources :votes
+  resources :relationships, only:[:create, :destroy]
   
   root :to => "pages#home"
 

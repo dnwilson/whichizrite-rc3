@@ -41,8 +41,8 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
   
-  has_attached_file :avatar, styles: {xsml: "30x30#", thumb: "50x50#", small: "150x150#", 
-                                      med:"500x500#", large:"1500x1500>"},
+  has_attached_file :avatar, styles: {xsml: "30x30#", thumb: "50x50#", small: "100x100#", 
+                                      med:"350x350#", large:"1500x1500>"},
                     default_url: "/assets/no-image.png",
                     url:  "/assets/images/users/:id/:basename_:style.:extension",
                     path: ":rails_root/public/assets/images/users/:id/:basename_:style.:extension"
@@ -52,6 +52,12 @@ class User < ActiveRecord::Base
   end
 
   has_many :stories, dependent: :destroy
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name: "Relationship",
+                                   dependent:  :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
   has_many :comments
 
   # before_save{|user| user.email = email.downcase}
@@ -83,7 +89,19 @@ class User < ActiveRecord::Base
 ### end 
 
   def feed
-  	Story.all
+  	Story.from_users_followed_by(self)
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)  
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
 end

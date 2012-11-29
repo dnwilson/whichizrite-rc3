@@ -2,17 +2,18 @@
 	<div class="row-fluid">
 		<aside class="span4">
 			<div class="update-box">
-				<section>				
+				<section class="profile-info">				
 					<%= render 'shared/user_info' %>
+					<%= render 'shared/stats' %>
 				</section>
 				<section class="story-form">				
 					<%= render 'shared/story_form' %>
 				</section>
 			</div>			
 		</aside>
-		<div class="span8">
+		<div class="span6">
 			<h1 class="feed-header">latest entries</h1>
-			<span class="ajaxreloadstories">			
+			<span class="ajaxreloadstories">	
 				<%= render 'shared/feed' %>
 			</span>			
 			

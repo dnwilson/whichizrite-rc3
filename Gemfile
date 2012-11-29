@@ -17,6 +17,7 @@ gem 'simple_form_fancy_uploads'
 gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 gem 'thumbs_up'
 gem 'auto_html'
+gem 'colorbox-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

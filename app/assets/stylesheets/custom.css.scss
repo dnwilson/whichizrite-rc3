@@ -238,22 +238,11 @@ div.field_with_errors div.ui-effects-wrapper {
 
 
 //Home Page Layout//
-.row{
-  //margin-top: -20px;
-}
-
-.span8{
-}
-
 .span3{
-  background-color: $grayLighter;
-  -webkit-border-radius: 10px;
-     -moz-border-radius: 10px;
-          border-radius: 10px;
-          select, textarea, input, .uneditable-input {
-            width: 100%;
-            height: 40px;
-  } 
+  background-color: white;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
 }
 
 .login{
@@ -325,8 +314,10 @@ input[type="search"], input[type="tel"], input[type="color"]{
   button.btn, input[type="submit"].btn {
     margin-left: 0px;
   }
+  .thumbnail {
+    margin-left: 15px;
+  }
   img{
-    margin-left: 20px;
     width: 100px;
     height: 100px;
     -webkit-border-radius: 10px;
@@ -444,16 +435,16 @@ h1.feed-header{
   }
   .content{
     display: block;    
-    padding-bottom: 10px;
-    margin-top: 10px;
+    padding: 5px 0 10px;
+    margin-top: 5px;
     border-top: 1px solid $lightGray;
     border-bottom: 1px solid $lightGray;
     color: gray;
     .title{
       font-weight: bold;
       display: block;
-      margin-top: 10px;
-      margin-bottom: 2px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       a{
         color: $grayDarker;
         font-size: 1.2em;
@@ -463,13 +454,24 @@ h1.feed-header{
         }
       }
     }
-    img{
-      text-align: center;
-      width: 100%;
-    }
-    iframe{
-      text-align: center;
-    }
+    .story-image{
+      display: block;
+      text-align: left;
+      img{
+        //border: 1px solid $lightGray;
+        text-align: center;
+        //background-color: $lightGray;
+        //padding: 8px;
+        margin: 5px 0 5px 0;
+        //-webkit-border-radius: 4px;
+        //border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+      }
+      iframe{
+        text-align: center;
+      }
+    }    
   }
 }
 
@@ -513,7 +515,7 @@ ol.stories{
     padding: 3px;
     color: white;
     margin: 5px;
-    width: 100px;
+    width: 100px;    
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
@@ -551,7 +553,7 @@ ol.stories{
 }
 
 .comment-btn{
-  background-color: white;
+  background-color: $grayMediumLight;
   padding: 3px;
   margin-left: 5px;
   -webkit-border-radius: 3px;
@@ -562,8 +564,11 @@ ol.stories{
     background-color: $lighterGreen;
     color: white;
     .icon-comments{
-      background-position: -16px -32px;
+      background-position: 0px -32px;
     }
+  }
+  a{
+    color: white;
   }
   a:hover{
     text-decoration: none;
@@ -579,7 +584,7 @@ ol.stories{
   line-height: 16px;
   vertical-align: text-top;
   background-image: url(desc_panel.png);
-  background-position: 0px -32px;
+  background-position: -16px -32px;
   background-repeat: no-repeat;
 }
 
@@ -599,27 +604,64 @@ span.votecount{
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
+  .profile-info{
+    padding: 5px;
+    border: 1px solid $grayMediumLight;
+    background-color: white;
+  }
   .user-info{
     float: left;
     display: block;
-    margin-left: 10px;
+    margin: 0 0 0 5px;
+    text-align: center;
+    width: 160px;
+    border: 1px solid $lightGray;
+    padding: 5px 0 5px 0;
     h2{
-      text-align: left;
       color: #333333;
     }
   }
   .avatar{
     float: left;
     display: inline-block;
+    height: 100px;
+    width: 100px;
   }
-  input[type="text"]{
-    height: 30px;
-    padding: 5px;
-  }
-  textarea{
-    height: 80px;
-    margin-bottom: 10px;
-    padding: 5px;
+  .stats{
+    margin-left: 5px;
+    text-align: center;
+    float: left;
+    display: block;
+    border-right: 1px solid $lightGray;
+    border-bottom: 1px solid $lightGray;
+    border-left: 1px solid $lightGray;
+
+    a{
+      background-color: $grayLighter;
+      color: gray;
+      text-decoration: none;
+      font-size: 12px;
+      text-align: center;
+      border: 3px solid $grayLighter;
+      display: inline-block;
+      width: 75px;   
+      height: 42px;
+      &:first-child{
+        border-right: 1px solid $lightGray;
+        background-color: $grayLighter;
+        &:hover{
+          border-right: 1px solid $lightGray;
+        }
+      }   
+      &:hover{
+        text-decoration: none;
+        background-color: white;
+        color: $lightGreen;
+        border: 3px solid white;
+      }
+      &:visited{
+      }
+    }
   }
   div.submit{
     float: none;
@@ -630,6 +672,24 @@ span.votecount{
   }
   .story-form{
     margin-top: 10px;
+    .image-upload{
+      float: left;
+        a.file-input-wrapper.btn {
+        margin-left: 0px;
+      }
+    }
+    input[type="text"]{
+      height: 30px;
+      padding: 5px;
+    }
+    textarea{
+      height: 80px;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+    .submit{
+      margin-top: -35px;
+    }
   }
 }
 /* End of Update Box */
@@ -646,7 +706,7 @@ span.votecount{
   margin: 10px 0 0 0;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-    border-radius: 5px;
+  border-radius: 5px;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
   -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
@@ -739,7 +799,7 @@ form.comments-form{
 form.simple_form.new_comment{
   margin: 10px 5px 0px 5px;
   textarea{
-    min-height: 80px;
+    height: 80px;
     //resize:none;
     overflow: hidden;  
   }
@@ -752,3 +812,137 @@ form.simple_form.new_comment{
     }
 }
 /* End of Story Page */
+
+/* Profile Page */
+.profile-pic{
+  float: left;
+  text-align:center;
+  border: 1px solid $lightGray;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  img{
+    padding: 10px;
+    width: 198px;
+  }
+  h1{
+    padding: 0 0 10px 0;
+    font-size: 2.3em;
+  }
+}
+
+.profile-stats{
+  margin-top: 10px;
+  display: block;
+  float: left;
+  background-color: $grayLighter;
+  border: 1px solid $lightGray;
+  .stats a{
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+    width: 98px;
+    &:hover{
+      color: $gray;
+      background-color: $lightGray;
+      text-decoration: none;
+    }
+    &:first-child{
+      border-right: 1px solid $lightGray;
+    }
+  }
+}
+
+.profile-follow{
+  display: block;
+  float: left;
+  padding: 10px;
+  background-color: $grayLighter;
+  width: 197px;
+  border-bottom: 1px solid $lightGray;
+  border-right: 1px solid $lightGray;
+  border-left: 1px solid $lightGray;
+}
+
+.profile-details{
+  margin-top: 10px;
+  display: block;
+  float: left;
+  border: 1px solid $lightGray;
+  width: 100%;
+  //-webkit-border-radius: 5px;
+  //-moz-border-radius: 5px;
+  border-radius: 5px;
+  //border-top-left-radius: 5px;
+  background-color: $grayLighter;
+  h3{
+    padding: 10px;
+    color: gray;
+  }
+  li{
+    list-style: none;
+    border-top: 1px solid #efefef;
+    color: $gray;
+    padding: 10px;
+    background-color: white;
+    &:first-child{
+      border-top: 1px solid $lightGray;
+    }
+    &:last-child{
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    p{
+      display: inline-block;
+      color: $grayDarker;
+      font-size: 1em;
+      line-height: 1em;
+      margin: 0px;
+    }
+  }
+}
+
+#follow_form{
+  display: block;
+  float: left;
+  margin-top: 10px;
+  .btn-primary{
+    width: 220px;
+  }
+  .btn-large{
+    width: 220px;
+  }
+  form{
+    margin: 0;
+  }
+}
+/* End of Profile Page */
+
+/* Follow Page */
+ul.users{
+  list-style: none;
+  border: 1px solid $lightGray;
+  margin: 10px 0 0 0;
+  li{
+    border-top: 1px solid $lightGray;
+    padding:10px;
+    &:first-child{
+      border-top: 0; 
+    }
+    #follow_form{
+      float: right;
+      display: inline-block;
+      margin: 10px;
+      .btn-primary{
+        width: 80px;
+      }
+      .btn-large{
+        width: 80px;
+      }
+      form{
+        margin: 0;
+      }
+    }
+  }
+}
+/* End of Follow Page */

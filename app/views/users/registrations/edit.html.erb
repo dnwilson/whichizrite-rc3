@@ -28,9 +28,17 @@
         <%= f.file_field :avatar, title:"Upload" %><br />
         maximum size of 700px (jpg, gif, png)
       <% else %>
-        <%= avatar_for(@user, "small") %>
-        <%= f.label :avatar %>
-        <%= f.file_field :avatar, title:"Upload" %><br />
+        <label class="file optional control-label" for="user_avatar">Avatar</label>
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+          <div class="fileupload-new thumbnail" style="width:100px; height:100px;"><img src="<%= @user.avatar.url(:small) %>">
+          </div>
+          <div class="fileupload-preview fileupload-exists thumbnail" style="width:100px; height:100px;"></div>
+          <span class="btn btn-file">
+            <span class="fileupload-new">Select image</span>
+            <span class="fileupload-exists">Change</span>
+              <input id="user_avatar" name="user[avatar]" title="Upload" type="file"></span>
+          <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
         <p class="upload-info">maximum size of 700px (jpg, gif, png)</p>
       <% end %>
     </div><br />

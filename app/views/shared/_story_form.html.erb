@@ -1,4 +1,4 @@
-<%= simple_form_for(@story, remote: true) do |f| %>
+<%= simple_form_for(@story, remote: true, :html => { :multipart => true } ) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :title, placeholder: "Title" %>
@@ -6,7 +6,17 @@
   <div class="field">
     <%= f.text_area :content, placeholder: "What do you want to say..." %>
   </div>
+
+  <div class="fileupload fileupload-new" data-provides="fileupload">
+    <span class="btn btn-file">
+      <span class="fileupload-new"><i class="icon-picture"></i> upload</span>
+      <span class="fileupload-exists">change</span>
+        <input id="story_content_image" name="story[content_image]" placeholder="Upload an image" type="file"></span>
+    <span class="fileupload-preview"></span>
+    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">x</a>
+  </div>
+
   <div class="submit">
-    <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Post", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -1,5 +1,10 @@
 <li>
-	<%= link_to user.email, user %>
+	<span class="username">
+		<%= link_to avatar_for(user, 'thumb'), user %>
+	</span>
+
+	<%= link_to user.username, user %>
+
 	<% if current_user.admin? && !current_user?(user) %>
 		| <%= link_to "delete", user, method: :delete,
 						data: {confirm: "You sure?"} %>
