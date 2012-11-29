@@ -11,17 +11,15 @@
 #
 
 class Story < ActiveRecord::Base
-  attr_accessible :content, :title, :content_image
+  include AutoHtml
+
+  attr_accessible :content, :title, :content_image, :content_html
   belongs_to :user
 
   has_attached_file :content_image, styles: {small:"518x518>", large:"1500x1500>"},
                     default_url: "/assets/no-image.png",
-                    url:  "/assets/images/users/:id/album/:basename_:style.:extension",
-                    path: ":rails_root/public/assets/images/users/:id/album/:basename_:style.:extension"
-
-  Paperclip.interpolates :name do |attachment, style|
-    "#{attachment.instance.id}"
-  end
+                    url:  "/assets/images/users/:user_id/shared/:style/:basename.:extension",
+                    path: ":rails_root/public/assets/images/users/:user_id/shared/:style/:basename.:extension"
 
   has_many :comments
 
@@ -29,7 +27,7 @@ class Story < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :title, presence: true, length: {minimum: 5, maximum:50}
-  validates :content, presence: true, length: {maximum: 320}
+  validates :content, length: {maximum: 320}
   validates_attachment :content_image, content_type: {:content_type => ["image/jpeg", "image/png", 
                                                         "image/bmp", "image/jpg"]}
                                 #size: {less_than: 5.megabytes}
@@ -52,6 +50,15 @@ class Story < ActiveRecord::Base
   	else
   	   self.votes_against - self.votes_for
   	end 
+  end
+
+  auto_html_for :content do
+    html_escape
+    image
+    youtube(:width => 438, :height => 246)
+    soundcloud(:maxwidth => '438')
+    link :target => "_blank", :rel => "nofollow"
+    simple_format
   end
 
 end

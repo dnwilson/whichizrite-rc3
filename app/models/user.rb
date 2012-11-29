@@ -40,16 +40,12 @@ class User < ActiveRecord::Base
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
-  
+
   has_attached_file :avatar, styles: {xsml: "30x30#", thumb: "50x50#", small: "100x100#", 
                                       med:"350x350#", large:"1500x1500>"},
                     default_url: "/assets/no-image.png",
-                    url:  "/assets/images/users/:id/:basename_:style.:extension",
-                    path: ":rails_root/public/assets/images/users/:id/:basename_:style.:extension"
-
-  Paperclip.interpolates :name do |attachment, style|
-    "#{attachment.instance.id}"
-  end
+                    url:  "/assets/images/users/:id/album/:style/:basename.:extension",
+                    path: ":rails_root/public/assets/images/users/:id/album/:style/:basename.:extension"
 
   has_many :stories, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

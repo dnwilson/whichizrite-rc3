@@ -5,7 +5,6 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'devise'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
@@ -18,6 +17,9 @@ gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 gem 'thumbs_up'
 gem 'auto_html'
 gem 'colorbox-rails'
+gem 'pg'
+gem 'jquery-rails'
+gem 'client_side_validations'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,18 +33,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
 group :development, :test do
 	gem 'rspec-rails'
 	gem 'guard-rspec'
+	gem 'sqlite3'
 end
-
-group :test do
-	gem 'spork'
-	gem 'factory_girl_rails'
-end
-
 
 #Test gem on windows
 group :test do
@@ -51,11 +46,13 @@ group :test do
 	gem 'capybara'
 	gem 'win32console'
 	gem 'wdm', '~> 0.0.3'
+	gem 'spork'
+	gem 'factory_girl_rails'
 end
 
 #For Heroku
 group :production do
-	gem 'pg', '0.12.2'
+	gem 'thin'
 end
 
 # To use ActiveModel has_secure_password

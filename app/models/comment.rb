@@ -11,7 +11,9 @@
 #
 
 class Comment < ActiveRecord::Base
-  attr_accessible :comment, :story_id
+  include AutoHtml
+  
+  attr_accessible :comment, :story_id, :comment_html
 
   belongs_to :story
   belongs_to :user
@@ -20,5 +22,15 @@ class Comment < ActiveRecord::Base
   
   validates :user_id, presence: true
   validates :story_id, presence: true
-  validates :comment, presence: true
+  validates :comment, presence: true, length: {minimum: 1}
+
+  auto_html_for :comment do
+    html_escape
+    image
+    youtube(:width => 438, :height => 246)
+    soundcloud(:maxwidth => '438')
+    link :target => "_blank", :rel => "nofollow"
+    simple_format
+  end
+
 end

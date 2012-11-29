@@ -1,7 +1,6 @@
 //The first line updates the list
 $(".ajaxreloadstories").html("<%= escape_javascript(render partial: 'shared/feed') %>");
-$('.stories > li:first').effect('highlight', {}, 5000);
 
-// //This next line clears the textarea and textfield
-$('textarea').val("");
-$('#story_title').val("");
+//This next line clears the textarea and textfield
+$('textarea#story_content').val('');
+$('input#story_title').val('');

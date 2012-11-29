@@ -690,6 +690,13 @@ span.votecount{
     .submit{
       margin-top: -35px;
     }
+    input.btn.btn-primary{
+      width: 60px;
+    }
+    a.close{
+      font-size: 1.1em;
+      text-transform: lowercase;
+    }
   }
 }
 /* End of Update Box */

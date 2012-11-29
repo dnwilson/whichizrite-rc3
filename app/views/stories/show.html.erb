@@ -11,7 +11,7 @@
 					<% if current_user?(@story.user) %>
 						<%= link_to @story, method: :delete,
 												data: {confirm: "You sure!"},
-												title:@story.content do %>
+												title:@story.title do %>
 							<i class="icon-remove"></i>
 						<% end %>
 					<% end %>
@@ -21,7 +21,7 @@
 					<span class="title">
 						<%= link_to @story.title, story_path(@story) %>				
 					</span>
-					<%= @story.content %>
+					<%= @story.content_html %>
 				</span>
 
 				<span class="input-bar">
