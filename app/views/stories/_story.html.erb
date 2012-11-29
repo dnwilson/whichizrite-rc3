@@ -1,0 +1,36 @@
+<li>
+	<span class="title">
+		<strong><%= link_to story.title %></strong>
+		<span class="delete">
+			<% if current_user?(story.user) %>
+				<%= link_to story, method: :delete,
+									data: {confirm: "You user?"},
+									title: story.content do %>
+					<i class="icon-remove"></i>
+				<% end %>
+			<% end %>
+		</span>
+	</span>
+
+	<span class="content">
+		<% if story.content_image? %>
+				<span class="story-image">
+					<%= image_tag story.content_image.url(:small) %>
+				</span>
+			<% end %>
+		<%= story.content %>
+	</span>
+
+	<span class="input-bar">
+		<span class="vote-<%= story.id %>">
+			<%= render partial: "shared/vote", locals: {feed_item: story} %>	
+		</span>
+		<span class="comment-btn">
+			<%= link_to story_path(story) do %>comments (<%= story.comments.count %>)
+			<i class="icon-comments"></i><% end %>
+		</span>
+		<span class="timestamp">
+			Posted <%= time_ago_in_words(story.created_at) %> ago.
+		</span>
+	</span>
+</li>

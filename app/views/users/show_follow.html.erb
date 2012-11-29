@@ -1,0 +1,38 @@
+<% provide(:title, @title) %>
+
+<div class="row">
+	<aside class="span3">
+		<span class="profile-pic">
+	      <%= link_to(image_tag(@user.avatar.url(:med)), @user.avatar.url(:med), :data => { :colorbox => true }) unless @user.avatar.nil? %>
+	      <h1>
+	        <%= link_to @user.name, @user %>
+	      </h1>
+	    </span>      
+
+	    <span class="profile-stats">
+	      <%= render 'shared/stats' %>
+	    </span>
+
+	    <span class="profile-follow">
+	      <% if @users.any? %>
+	        <div class="user_avatars">
+	          <% @users.each do |user| %>
+	            <%= link_to avatar_for(user, 'xsml'), user %>
+	          <% end %>
+	        </div>
+	      <% end %>
+	    </span> 
+	</aside>
+
+	<div class="span8">
+		<h3><%= @title %></h3>
+		<% if @users.any? %>
+				<ul class="users">
+					<% @users.each do |user| %>
+						<%= render partial: "follow_users", locals: {user: user} %>
+					<% end %>
+				</ul>
+				<%= will_paginate %>
+		<% end %>
+	</div>
+</div>

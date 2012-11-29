@@ -1,0 +1,46 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <div class="span3">
+    <span class="profile-pic">
+      <%= link_to(image_tag(@user.avatar.url(:med)), @user.avatar.url(:med), :data => { :colorbox => true }) unless @user.avatar.nil? %>
+      <h1>
+        <%= @user.name %>
+      </h1>
+    </span>  
+
+    <%= render 'follow_form' if signed_in? %>      
+
+    <span class="profile-stats">
+      <%= render 'shared/stats' %>
+    </span>
+
+    <% if @users.any? %>
+      <span class="profile-follow">        
+        <div class="user_avatars">
+          <% @users.each do |user| %>
+            <%= link_to avatar_for(user, 'xsml'), user %>
+          <% end %>
+        </div>
+      </span> 
+    <% end %>
+
+    <span class="profile-details">
+      <h3>About</h3>
+      <li>Sex: <p><%= @user.sex.to_s %></p></li>
+      <li>Location: <p><%= @user.location %></p></li>
+      <li>Bio: <p><%= @user.bio %></p></li>      
+    </span> 
+  </div>
+
+  <div class="span6">    
+  	<% if @user.stories.any? %>
+  		<h3>Stories (<%= @user.stories.count %>)</h3>
+  		<ol class="stories">
+  			<%= render @stories %>
+  		</ol>
+  		<%= will_paginate @stories %>
+  	<% end %>
+  </div>
+
+  <div class="span3"></div>
+</div>
