@@ -5,8 +5,12 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		@stories = @user.stories.paginate(page: params[:page])
 		@users = @user.followed_users.paginate(page: params[:page])
+		if @user == current_user
+			@stories = Story.stories_from_me(@user).paginate(page: params[:page])
+		else
+			@stories = @user.stories.paginate(page: params[:page])
+		end
 	end
 
 	def index

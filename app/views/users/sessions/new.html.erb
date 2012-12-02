@@ -2,7 +2,7 @@
 	<div class="signin">
 		<h2>whichizrite sign in</h2>
 
-		<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<%= simple_form_for(resource, :as => resource_name, :validate => true, :url => session_path(resource_name)) do |f| %>
 		  <div><%= f.email_field :login, placeholder: 'Email/Username' %></div>
 
 		  <div><%= f.password_field :password, placeholder: 'Password' %></div>

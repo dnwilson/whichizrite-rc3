@@ -5,10 +5,10 @@
 				<%= link_to avatar_for(@story.user, 'thumb'), @story.user %>
 
 				<span class="username">
-					<%= link_to @story.user.email, @story.user %>
+					<%= link_to @story.user.username, @story.user %>
 				</span>
 				<span class="delete">
-					<% if current_user?(@story.user) %>
+					<% if current_user.id == (@story.origin_user_id) %>
 						<%= link_to @story, method: :delete,
 												data: {confirm: "You sure!"},
 												title:@story.title do %>
@@ -19,7 +19,7 @@
 				
 				<span class="content">
 					<span class="title">
-						<%= link_to @story.title, story_path(@story) %>				
+						<%=  @story.title %>				
 					</span>
 					<%= @story.content_html %>
 				</span>

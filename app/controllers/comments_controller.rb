@@ -3,15 +3,31 @@ class CommentsController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :correct_user, only: :destroy
 
+	# def create
+	# 	# @comments = Comment.all
+	# 	@comment = current_user.comments.create(params[:comment])
+	# 	@story = @comment.story
+	# 	respond_to do |format|
+ #            format.html {redirect_to @comment.story}
+ #            format.js
+ #        end
+	# end
+
+	def new
+        @comment = current_user.comments.create(params[:comment])
+        @story = @comment.story
+        @comment = :json
+    end
+
 	def create
-		# @comments = Comment.all
-		@comment = current_user.comments.create(params[:comment])
-		@story = @comment.story
-		respond_to do |format|
+        @comment = current_user.comments.create(params[:comment])
+        @story = @comment.story
+
+        respond_to do |format|
             format.html {redirect_to @comment.story}
             format.js
         end
-	end
+    end
 
 	def destroy
 		@comment = Comment.find(params[:id])

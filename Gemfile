@@ -10,16 +10,17 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap-sass', '2.0.4'
 gem 'annotate'
-gem 'simple_form'
 gem 'country_select'
 gem 'simple_form_fancy_uploads'
-gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
+gem 'paperclip'#, :git => 'git://github.com/thoughtbot/paperclip.git'
 gem 'thumbs_up'
 gem 'auto_html'
 gem 'colorbox-rails'
 gem 'pg'
 gem 'jquery-rails'
+gem 'simple_form'
 gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,7 +35,7 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'rspec-rails'
+	gem 'rspec-rails', '2.10.1'
 	gem 'guard-rspec'
 	gem 'sqlite3'
 end
@@ -43,11 +44,12 @@ end
 group :test do
 	gem 'rb-fchange'
 	gem 'rb-notifu'
-	gem 'capybara'
+	gem 'capybara', '1.1.2'
 	gem 'win32console'
 	gem 'wdm', '~> 0.0.3'
-	gem 'spork'
+	gem 'spork', '~> 1.0rc'
 	gem 'factory_girl_rails'
+	# gem 'webrat'
 end
 
 #For Heroku

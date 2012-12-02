@@ -13,13 +13,22 @@ class StoriesController < ApplicationController
 
 	def create
 		@story = current_user.stories.build(params[:story])
+        if @story.anonymous?
+            @story.user_id = User.find(2).id
+            @story.origin_user_id = current_user.id
+        else
+            @story.origin_user_id = current_user.id
+        end
         respond_to do |format|
-        	if @story.save!
-                format.html {redirect_to root_path}
+        	if @story.save
+                format.html {redirect_to root_path, :notice => "Story created!"}
+                format.json {render json: @story, status: :created, location: @story}
                 format.js
         	else
                 @feed_items = []
-                render 'pages/index'
+                format.html {render 'pages/home'}
+                format.json {render json: @story.errors, status: :unprocessable_entity}
+                format.js {render 'pages/home'}
         	end
         end
 	end

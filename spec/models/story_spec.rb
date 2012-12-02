@@ -23,6 +23,10 @@ describe Story do
 	it{should respond_to(:content)}
 	it{should respond_to(:user_id)}
 	it{should respond_to(:user)}
+	it{should respond_to(:comments)}
+	it{should respond_to(:votes)}
+	it{should respond_to(:content_image)}
+	it{should respond_to(:content_html)}
 	its(:user){should == user}
 
 	it{should be_valid}
@@ -40,8 +44,8 @@ describe Story do
 		it{should_not be_valid}
 	end
 	
-	describe "with blank details" do
-		before{@story.content = nil}
+	describe "with blank content and blank image" do
+		before{@story.content = nil || @story.content_image = nil}
 		it{should_not be_valid}
 	end
 

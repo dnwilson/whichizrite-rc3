@@ -18,13 +18,17 @@ describe "StoryPages" do
 
   		describe "error messages" do
   			before{click_button "Post"}
-  			it {should have_content('error')}
+  			it {should have_content('title')}
   		end
   	end
 
   	describe "with valid information" do
   		
-  		before {fill_in 'story_content', with: "Lorem ipsum"}
+  		before {
+        fill_in 'story_title', with: "Lorem ipsum"
+        fill_in 'story_content', with: "Some random content"
+      }
+
   		it "should create a story" do
   			expect{click_button "Post"}.should change(Story, :count).by(1)
   		end

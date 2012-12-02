@@ -13,7 +13,7 @@
 class Story < ActiveRecord::Base
   include AutoHtml
 
-  attr_accessible :content, :title, :content_image, :content_html
+  attr_accessible :content, :title, :content_image, :content_html, :anonymous
   belongs_to :user
 
   has_attached_file :content_image, styles: {small:"518x518>", large:"1500x1500>"},
@@ -27,10 +27,10 @@ class Story < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :title, presence: true, length: {minimum: 5, maximum:50}
-  validates :content, length: {maximum: 320}
+  validates :content, presence: true, length: {maximum: 320}
   validates_attachment :content_image, content_type: {:content_type => ["image/jpeg", "image/png", 
                                                         "image/bmp", "image/jpg"]}
-                                #size: {less_than: 5.megabytes}
+                                # size: {less_than: 10.megabytes}
 
   default_scope order: 'stories.created_at DESC'
 
@@ -38,9 +38,18 @@ class Story < ActiveRecord::Base
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", 
+    where("user_id IN (#{followed_user_ids}) OR origin_user_id = :user_id", 
           user_id: user.id)
   end
+
+  def self.stories_from_me(user)
+    where("origin_user_id = user_id OR user_id = user_id")
+  end
+
+  # def story_valid?
+  #   if !self.content.nil? || self.content_image.file?
+  #   errors.add(:content, 'Please enter a post or upload a picture')
+  # end
 
   def votecount
   	if self.votes_for == self.votes_against 

@@ -1,4 +1,4 @@
-<%= simple_form_for(@story, remote: true, :html => { :multipart => true } ) do |f| %>
+<%= simple_form_for(@story, remote: true, :validate => true, :html => { :multipart => true } ) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :title, placeholder: "Title" %>
@@ -7,16 +7,20 @@
     <%= f.text_area :content, placeholder: "What do you want to say..." %>
   </div>
 
-  <div class="fileupload fileupload-new" data-provides="fileupload">
-    <span class="btn btn-file">
-      <span class="fileupload-new"><i class="icon-picture"></i> upload</span>
-      <span class="fileupload-exists">change</span>
-        <input id="story_content_image" name="story[content_image]" placeholder="Upload an image" type="file"></span>
-    <span class="fileupload-preview"></span>
-    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">x</a>
-  </div>
+  <span class="story-btn" style="display: block; float: none;">
+    <span class="anonymous-field">
+      <%= f.check_box :anonymous, :label => "Post anonymously?" %>
+    </span> post anonymously?
+    <span class="fileupload fileupload-new" data-provides="fileupload">
+      <span class="btn btn-file">
+        <span class="fileupload-new"><i class="icon-picture"></i></span>
+        <span class="fileupload-exists">change</span>
+          <input id="story_content_image" name="story[content_image]" placeholder="Upload an image" type="file"></span>
+      <!-- <span class="fileupload-preview"><a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">x</a></span>     -->
+    </span>
 
-  <div class="submit">
-    <%= f.submit "Post", class: "btn btn-primary" %>
-  </div>
+    <span class="submit">
+      <%= f.submit "Post", class: "btn btn-primary" %>
+    </span>
+  </span>
 <% end %>

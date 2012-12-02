@@ -13,5 +13,18 @@
 require 'spec_helper'
 
 describe Comment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user){FactoryGirl.create(:user)}
+	before {@comment = user.comments.create(comment: "Lorem ipsum")}
+
+	subject{@comment}
+
+	it{should respond_to(:comment)}
+	it{should respond_to(:comment_html)}
+	it{should respond_to(:user)}
+	it{should respond_to(:story)}
+	it{should respond_to(:votes)}
+	it{should respond_to(:story_id)}
+	its(:user){should == user}
+
+	# it{should be_valid}
 end

@@ -435,7 +435,7 @@ h1.feed-header{
   }
   .content{
     display: block;    
-    padding: 5px 0 10px;
+    //padding: 5px 0 10px;
     margin-top: 5px;
     border-top: 1px solid $lightGray;
     border-bottom: 1px solid $lightGray;
@@ -692,6 +692,8 @@ span.votecount{
     }
     input.btn.btn-primary{
       width: 60px;
+      margin-top: 10px;
+      float: right;
     }
     a.close{
       font-size: 1.1em;
@@ -719,7 +721,7 @@ span.votecount{
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
   .content{
     display: block;    
-    padding-bottom: 10px;
+    //padding-bottom: 10px;
     margin-top: 10px;
     border-top: 1px solid $lightGray;
     border-bottom: 1px solid $lightGray;
@@ -729,6 +731,7 @@ span.votecount{
       display: block;
       margin-top: 10px;
       margin-bottom: 2px;
+      color: $grayDarker;
       a{
         color: $grayDarker;
         font-size: 1.2em;
@@ -790,7 +793,7 @@ span.votecount{
   .comment-content{
     float: none;
     margin-left: -5px;
-    padding: 5px;
+    padding: 5px 5px 5px 0;
   }
 }
 
@@ -953,3 +956,30 @@ ul.users{
   }
 }
 /* End of Follow Page */
+
+
+.fileupload-preview{
+  margin-top: -10px;
+}
+
+.fileupload{
+  margin-left: 10px;
+}
+
+.help-inline {
+  //margin-top: -7px;
+  margin-bottom: 8px;
+  color: red;
+}
+
+span.anonymous-field{
+  padding: 5px 5px 0 0;
+}
+
+input#story_anonymous{
+  padding-right: 10px;
+}
+
+textarea#story_content{
+  margin-bottom: 0px;
+}

@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-file-input
+//= require bootstrap-fileupload
+//= require rails.validations
+// require rails.validations.custom
+//= require colorbox-links
+// require jquery.colorbox.min

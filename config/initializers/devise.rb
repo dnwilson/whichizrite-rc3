@@ -231,4 +231,5 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
   config.authentication_keys = [:login]
+  config.stretches = Rails.env.test? ? 1 : 10
 end
