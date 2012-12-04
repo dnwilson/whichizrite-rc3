@@ -4,10 +4,10 @@ class UsersController < ApplicationController
 	before_filter :admin_user, only: :destroy
 
 	def show
-		@user = User.find(params[:id])
+		@user = User.find_by_username(params[:id])
 		@users = @user.followed_users.paginate(page: params[:page])
 		if @user == current_user
-			@stories = Story.stories_from_me(@user).paginate(page: params[:page])
+			@stories = Story.stories_from_me(@user.id).paginate(page: params[:page])
 		else
 			@stories = @user.stories.paginate(page: params[:page])
 		end

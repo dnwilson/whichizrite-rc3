@@ -45,9 +45,9 @@ class Story < ActiveRecord::Base
           user_id: user.id)
   end
 
-  # def self.stories_from_search(id)
-  #   where("id = user_id OR user_id = user_id")
-  # end
+  def self.stories_from_me(user)
+    where("origin_user_id = user_id OR user_id = user_id")
+  end
 
   # def self.search(query)
   #   if query.present?
