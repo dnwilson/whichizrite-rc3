@@ -3,8 +3,7 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "jquery", "jquery_ujs", "rails.validations", "rails.validations.simple_form",
-                               "bootstrap-fileupload", "colorbox-links" %>
+    <%= javascript_include_tag  "jquery", "jquery_ujs", "bootstrap", "bootstrap-fileupload" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>

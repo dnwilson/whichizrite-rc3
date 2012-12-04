@@ -8,9 +8,11 @@
   </div>
 
   <span class="story-btn" style="display: block; float: none;">
-    <span class="anonymous-field">
-      <%= f.check_box :anonymous, :label => "Post anonymously?" %>
-    </span> post anonymously?
+    
+    <label class="checkbox">
+      <input id="story_anonymous" label="Post anonymously?" name="story[anonymous]" type="checkbox" value="1"> post anonymously?
+    </label>
+
     <span class="fileupload fileupload-new" data-provides="fileupload">
       <span class="btn btn-file">
         <span class="fileupload-new"><i class="icon-picture"></i></span>

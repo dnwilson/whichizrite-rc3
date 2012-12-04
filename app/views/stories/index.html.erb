@@ -1,43 +1,21 @@
 <h1>Stories list</h1>
-<% if @stories.any? %>
+<% if @pg_search_documents.any? %>
 	<ol class="stories">
-		<% @stories.each do |story| %>
+		<% @pg_search_documents.each do |search_item| 
+		story = Story.find(search_item.searchable_id) %>
 		<li id="<%= story.id %>">
-			<span class="story-<%= story.id %>"
-				<span class="title">
+			<span class="story-<%= story.id %>">
+				<span class="title">				
 					<%= story.title %>
 				</span>
 				<span class="content">				
-					<%= story.content %>
+					<%= story.content_html %>
 				</span>
-			</span>
-			<span class="input-bar">
-				<span class="vote">
-					<% if current_user.votes.where(story_id: story.id).first %>
-						<% if current_user.votes.where(story_id: story.id).first.wir? %>
-
-							<%= link_to votes_path(:vote => {story_id: story.id, wir: true}), :class => "wir", method: :post do %><i class="icon-wir"></i> (<%= story.votes.where(wir: true).count %>)
-								<% end %> | 
-							<%= link_to votes_path(:vote => {story_id: story.id, wir: false}), :class => "wiw", method: :post do %><i class="icon-wiw"></i> (<%= story.votes.where(wir: false).count %>)
-							<% end %> | 
-							<a href="" class="comments-btn">
-								<i class="icon-comments"></i> (20)
-							</a>
-						<% else %>
-							<%= link_to image_tag("wir_off.png", :alt => "wir"), votes_path(:vote => {story_id: story.id, wir: true}), method: :post %> (<%= story.votes.where(wir: true).count %>) | <%= link_to image_tag("wiw_on.png", :alt => "wiw"), votes_path(:vote => {story_id: story.id, wir: false}), method: :post %> (<%= story.votes.where(wir: false).count %>)				
-						<% end %>
-					<% else %>
-						<%= link_to image_tag("wir_off.png", :alt => "wir"), votes_path(:vote => {story_id: story.id, wir: true}), method: :post %> (<%= story.votes.where(wir: true).count %>) | <%= link_to image_tag("wiw_off.png", :alt => "wiw"), votes_path(:vote => {story_id: story.id, wir: false}), method: :post %> (<%= story.votes.where(wir: false).count %>)
-					<% end %>
-				</span>
-			</span>
-
-			<span class="timestamp">
-				<%= link_to "show", story %> | 
-				<%= link_to "delete", story, confirm: "Are you sure?", method: :delete %>
 			</span>
 		</li>
 
 	<% end %>
 	</ol>
+<% else %>
+	Could not find anything matching what you searched for.
 <% end %>

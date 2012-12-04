@@ -28,7 +28,7 @@ $grayLighter: #f9f9f9;
 $gray: #999999;
 $grayDarker: #666666;
 $lightGreen: #33cc00;
-$lighterGreen: #33cc00;
+$lighterGreen: #33aa00;
 
 
 //@shadow: 0 1px 3px rgba(0,0,0,.25);
@@ -112,41 +112,28 @@ p {
 }
 
 /* navbar */
-.navbar-inner {
-  height: 40px;
-  background-color: white;
-  background-image: -moz-linear-gradient(center top , black, $grayDarker);
-  background-image: -webkit-linear-gradient(top , black, $grayDarker);
-  background-image: -o-linear-gradient(top , black, $grayDarker);
-  background-image: linear-gradient(top , black, $grayDarker);
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.067);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#333333', GradientType=0);
-}
-
-.navbar{
-  height: 40px;
-}
-
-.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner
-{
-  box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1) inset, 0px 1px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.navbar .nav li a{
-  font-size: 1em;
-  font-weight: bold;
-  color: $grayLighter;
-  line-height: 2em;
-  &:hover{
-    text-shadow:none;
-    color: white;
-    background-image: none;
+ul.dropdown-menu {
+  li a{
+    width: 160px;
   }
 }
 
-.navbar .nav.pull-right {
-  vertical-align: middle;
+ul.dropdown-menu > li.dropdown-links a{
+color: #333;
+}
+
+.navbar .nav li a {
+  color: $grayMediumLight;
+  &:hover{
+  color: $lightGreen;
+  }
+}
+
+.dropdown-menu > li > a{
+  color: $grayDarker;
+  &:hover{
+    background-color: #333;
+  }
 }
 
 #logo {
@@ -156,6 +143,27 @@ p {
     text-decoration: none;
   }
  }
+
+ .navbar-search .icon-search{
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 5px;
+}
+
+form.navbar-search {
+  margin-top: 4px;
+  height: 30px;
+}
+
+
+
+.navbar-search .search-query{
+  height: 30px;
+  padding-left: 25px !important;
+}
+
+input.search-query{
+}
 
 /* footer */
 
@@ -692,7 +700,6 @@ span.votecount{
     }
     input.btn.btn-primary{
       width: 60px;
-      margin-top: 10px;
       float: right;
     }
     a.close{
@@ -982,4 +989,16 @@ input#story_anonymous{
 
 textarea#story_content{
   margin-bottom: 0px;
+}
+
+.story-btn{
+  margin-top: 10px;
+  display: block;
+}
+
+.checkbox{
+ font-size: 1em;
+ font-family: questrialregular;
+ width: 120px;
+  display: inline-block;
 }

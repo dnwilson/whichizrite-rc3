@@ -36,7 +36,7 @@ GEM
       redcarpet (~> 2.0)
       rinku (~> 1.5.0)
     bcrypt-ruby (3.0.1-x86-mingw32)
-    bootstrap-sass (2.0.4.0)
+    bootstrap-sass (2.0.0)
     bootstrap-will_paginate (0.0.9)
       will_paginate
     builder (3.0.4)
@@ -121,6 +121,9 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     pg (0.14.1-x86-mingw32)
+    pg_search (0.5.7)
+      activerecord (>= 3)
+      activesupport (>= 3)
     polyglot (0.3.3)
     pry (0.9.10-x86-mingw32)
       coderay (~> 1.0.5)
@@ -227,7 +230,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   auto_html
-  bootstrap-sass (= 2.0.4)
+  bootstrap-sass (= 2.0.0)
   bootstrap-will_paginate
   capybara (= 1.1.2)
   client_side_validations
@@ -241,6 +244,7 @@ DEPENDENCIES
   jquery-rails
   paperclip
   pg
+  pg_search
   rails (= 3.2.8)
   rb-fchange
   rb-notifu

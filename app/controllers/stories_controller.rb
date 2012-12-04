@@ -65,9 +65,12 @@ class StoriesController < ApplicationController
         end 
     end
 
-    # def index
-    #     @stories = Story.all
-    # end
+    def index
+        @pg_search_documents = PgSearch.multisearch(params[:query]) #.paginate(page: params[:page])  
+        # @stories = @pg_search_documents
+    end
+
+    
 
     # def edit
     #     @story = Story.find(params[:id])

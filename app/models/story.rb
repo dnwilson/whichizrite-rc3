@@ -12,6 +12,9 @@
 
 class Story < ActiveRecord::Base
   include AutoHtml
+  include PgSearch
+
+  multisearchable :against => [:title, :content, :id]
 
   attr_accessible :content, :title, :content_image, :content_html, :anonymous
   belongs_to :user
@@ -42,9 +45,17 @@ class Story < ActiveRecord::Base
           user_id: user.id)
   end
 
-  def self.stories_from_me(user)
-    where("origin_user_id = user_id OR user_id = user_id")
-  end
+  # def self.stories_from_search(id)
+  #   where("id = user_id OR user_id = user_id")
+  # end
+
+  # def self.search(query)
+  #   if query.present?
+  #     search(query)
+  #   else
+  #     scoped
+  #   end    
+  # end
 
   # def story_valid?
   #   if !self.content.nil? || self.content_image.file?
