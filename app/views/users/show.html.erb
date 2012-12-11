@@ -16,9 +16,9 @@
 
     <% if @users.any? %>
       <span class="profile-follow">        
-        <div class="user_avatars">
+        <div class="@user_avatars">
           <% @users.each do |user| %>
-            <%= link_to avatar_for(user, 'xsml'), user %>
+            <%= link_to avatar_for(@user, 'xsml'), user %>
           <% end %>
         </div>
       </span> 
@@ -36,7 +36,7 @@
   	<% if @user.stories.any? %>
   		<h3>Stories (<%= @user.stories.count %>)</h3>
   		<ol class="stories">
-  			<%= render @stories %>
+  			<%= render @user.stories %>
   		</ol>
   		<%= will_paginate @stories %>
   	<% end %>
