@@ -89,7 +89,7 @@ class StoriesController < ApplicationController
     private
 
         def correct_user
-            @story = current_user.stories.find_by_id(params[:id])
+            @story = current_user.id == Story.find_by_id(params[:id]).origin_user_id
             redirect_to root_url if @story.nil?
         end
 end
