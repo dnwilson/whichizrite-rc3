@@ -1,6 +1,6 @@
 <li>
 	<span class="title">
-		<strong><%= link_to story.title %></strong>
+		<strong><%= link_to story.title, story_path(story) %></strong>
 		<span class="delete">
 			<% if current_user.id == story.origin_user_id %>
 				<%= link_to story, method: :delete,
@@ -25,10 +25,12 @@
 		<span class="vote-<%= story.id %>">
 			<%= render partial: "shared/vote", locals: {feed_item: story} %>	
 		</span>
-		<span class="comment-btn">
-			<%= link_to story_path(story) do %>comments (<%= story.comments.count %>)
-			<i class="icon-comments"></i><% end %>
-		</span>
+		<% if current_user.following?(story.user) %>
+			<span class="comment-btn">
+				<%= link_to story_path(story) do %>comments (<%= story.comments.count %>)
+				<i class="icon-comments"></i><% end %>
+			</span>
+		<% end %>
 		<span class="timestamp">
 			Posted <%= time_ago_in_words(story.created_at) %> ago.
 		</span>

@@ -1,10 +1,14 @@
 require 'spec_helper'
 
+include Warden::Test::Helpers
+
+Warden.test_mode!
+
 describe "UserPages" do
 
 	subject{page}
 
-	describe "index" do
+	describe "index page" do
 
 		let(:user) {FactoryGirl.create(:user)}
 
@@ -12,7 +16,8 @@ describe "UserPages" do
 		after(:all) {User.delete_all}
 
 		before(:each) do 
-			sign_in user
+			visit login_path
+			login_as(user, :scope => :user) 
 			visit users_path
 		end
 
@@ -30,48 +35,71 @@ describe "UserPages" do
 			end
 		end
 
-		describe "delete links" do
+		# describe "delete links" do
 			
-			it{should_not have_link('delete')}
+		# 	it{should_not have_link('delete')}
 
-			describe "as an admin user" do
-				let(:admin){FactoryGirl.create(:admin)}
-				before do
-					sign_in admin
-					visit users_path
-				end
+		# 	describe "as an admin user" do
+		# 		let(:admin){FactoryGirl.create(:admin)}
+		# 		before(:each) do
+		# 			click_link('Sign out')
+		# 			visit login_path
+		# 			login_as(admin, :scope => :admin) 
+		# 			visit users_path
+		# 		end
 
-				it{should have_link('delete', href: user_path(User.first))}
-				it "should be able to delete another user" do
-					expect{click_link('delete')}.to change(User, :count).by(-1)
-				end
-				it{should_not have_link('delete', href: user_path(admin))}									
-			end
-		end
+		# 		it{should have_link('delete', href: user_path(User.first))}
+
+		# 		it "should be able to delete another user" do
+		# 			expect{click_link('delete')}.to change(User, :count).by(-1)
+		# 		end
+
+		# 		it{should_not have_link('delete', href: user_path(admin))}									
+		# 	end
+		# end
 	end
 
 	describe "signup page" do
-		before {visit signup_path}
+		before {visit register_path}
 
-		it {should have_selector('h1', text: 'Sign up')}
+		it {should have_selector('h2', text: 'Sign up')}
 		it {should have_selector('title', text: full_title('Sign up'))}
 	end
 
 	describe "profile page" do
 		#Code to make a user variable
 		let (:user){FactoryGirl.create(:user)}
-		let!(:m1) {FactoryGirl.create(:micropost, user: user, content: "Foo")}
-		let!(:m2) {FactoryGirl.create(:micropost, user: user, content: "Bar")}
+		let!(:s1) {FactoryGirl.create(:story, user_id: user.id, title: "barand", content: "Foo")}
+		let!(:s2) {FactoryGirl.create(:story, user_id: user.id, title: "foobar", content: "Bar")}
+		
+		before(:each) do 
+			visit login_path
+			login_as(user, :scope => :user)
+		end
 
 		before{visit user_path(user)}
 
 		it {should have_selector('h1', text: user.name)}
 		it {should have_selector('h1', text: user.name)}
 
-		describe "microposts" do
-			it {should have_content(m1.content)}
-			it {should have_content(m2.content)}
-			it {should have_content(user.microposts.count)}
+		describe "stories" do
+			it {should have_content(s1.content)}
+			it {should have_content(s2.content)}
+			it {should have_content(user.stories.count)}
+		end
+
+		describe "private user" do
+			let(:private_user) { FactoryGirl.create(:user, private_user: true) }
+
+			before do 
+				visit login_path
+				login_as(user, :scope => :user)
+				visit user_path(private_user)
+			end
+
+			it "should not be displayed if user is private" do
+				should have_selector('h1', text: "This is a private user")
+			end
 		end
 
 		it {should have_selector('h1', text: user.name)}
@@ -80,7 +108,7 @@ describe "UserPages" do
 		describe "follow/unfollow buttons" do
 
 			let(:other_user) { FactoryGirl.create(:user) }
-			before { sign_in user}
+			before { login_as(user, :scope => :user)}
 			
 			describe "following a user" do
 				before{visit user_path(other_user)}
@@ -130,7 +158,7 @@ describe "UserPages" do
 	end
 
 	describe "signup" do
-		before{visit signup_path}
+		before{visit register_path}
 
 		let(:submit){"Create my account"}
 
@@ -149,10 +177,11 @@ describe "UserPages" do
 
 		describe "with valid information" do
 			before do
-				fill_in "Name",			with:"Example User"
-				fill_in "Email",		with:"user@example.com"
-				fill_in "Password", 	with:"foobar"
-				fill_in "Confirmation", with:"foobar"
+				fill_in "user_name",					with:"Example User"
+				fill_in "user_email",					with:"user@example.com"
+				fill_in "user_username",				with:"exampleuser"
+				fill_in "user_password", 				with:"foobar"
+				fill_in "user_password_confirmation", 	with:"foobar"
 			end
 
 			it "should create a user" do
@@ -163,8 +192,8 @@ describe "UserPages" do
 				before{click_button submit}
 				let(:user){User.find_by_email('user@example.com')}
 
-				it {should have_selector('title', text: user.name)}
-				it {should have_selector('div.alert.alert-success', text:'welcome')}
+				it {should have_selector('h2', text: user.username)}
+				it {should have_selector('div.alert.alert-notice', text:'Welcome!')}
 				it {should have_link('Sign out')}
 			end
 		end		
@@ -174,38 +203,40 @@ describe "UserPages" do
 	    let(:user) { FactoryGirl.create(:user) }
 
 	    before do
-			sign_in user
-			visit edit_user_path(user)
+			login_as(user, :scope => :user) 
+			visit settings_path(user)
 	    end
 
 	    describe "page" do
-		    it { should have_selector('h1',    text: "Update your profile") }
-		    it { should have_selector('title', text: "Edit user") }
-		    it { should have_link('change', href: 'http://gravatar.com/emails') }
+		    it { should have_selector('h2',    text: "Profile") }
+		    it { should have_selector('title', text: "Profile settings") }
 	    end
 
-	    describe "with invalid information" do
-	    	before { click_button "Save changes" }
+	    # describe "with invalid information" do
+	    # 	before { click_button "Update" }
 
-	    	it { should have_content('error') }
-	    end
+	    # 	it { should have_content('error') }
+	    # end
 
 	    describe "with valid information" do
-		    let(:new_name)  { "New Name" }
-		    let(:new_email) { "new@example.com" }
+		    let(:new_name)		{ "New Name" }
+		    let(:new_location)	{ "My Place, My City" }
+		    let(:new_website)	{ "www.myplace.com" }
+		    let(:new_bio)		{ "This is my bio" }
+		    let(:new_username)	{ "example1" }
 		    before do
-		        fill_in "Name",             with: new_name
-		        fill_in "Email",            with: new_email
-		        fill_in "Password",         with: user.password
-		        fill_in "Confirmation", 	with: user.password
-		        click_button "Save changes"
+		        fill_in "user_name",             		with: new_name
+		        fill_in "user_location",            	with: new_location
+		        fill_in "user_website",   	         	with: new_website
+		        fill_in "user_bio",            			with: new_bio
+		        fill_in "user_username",				with: new_username
+		        click_button "Update"
 		    end
 
-		    it { should have_selector('title', text: new_name) }
-		    it { should have_selector('div.alert.alert-success') }
-		    it { should have_link('Sign out', href: signout_path) }
-		    specify { user.reload.name.should  == new_name }
-		    specify { user.reload.email.should == new_email }
+		    it { should have_selector('h1', text: new_name) }
+		    it { should have_selector('div.alert.alert-notice') }
+		    it { should have_link('Sign out', href: logout_path) }
+		    specify { user.reload.username.should  == new_username }
 	    end	  
 	end
 
@@ -216,13 +247,13 @@ describe "UserPages" do
 
 		describe "followed users" do
 			before do
-				sign_in user
+				login_as(user)
 				visit following_user_path(user)
 			end
 
 			it{should have_selector('title', text: full_title('Following'))}
 			it{should have_selector('h3', text:'Following')}
-			it{should have_link(other_user.name, href: user_path(other_user))}
+			it{should have_link(other_user.username, href: user_path(other_user))}
 		end
 
 		describe "followers" do
@@ -233,7 +264,7 @@ describe "UserPages" do
 
 			it{should have_selector('title', text: full_title('Followers'))}
 			it{should have_selector('h3', text: 'Followers')}
-			it{should have_link(user.name, href: user_path(user))}
+			it{should have_link(user.username, href: user_path(user))}
 		end
 	end
 end

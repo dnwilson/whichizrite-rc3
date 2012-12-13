@@ -1,5 +1,5 @@
+<% provide(:title, 'Profile settings') %>
 <div class="row">
-
   <div class="edit-nav span4">
     <ul class="nav nav-pills nav-stacked">
       <li class="<%= 'active' if current_page?(settings_path) %>">
@@ -52,7 +52,9 @@
     <%= f.label :email %>
     <%= f.text_field :email %><br />
 
-    <%= f.input :sex, :collection => [['Male'], ['Female']] %>
+    <%= f.input :sex, :collection => [['male'], ['female']] %>
+
+    <%= f.input :private_user, :as => :boolean %>
 
     <%= f.label :website %>
     <%= f.text_field :website %><br />

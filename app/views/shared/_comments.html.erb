@@ -3,9 +3,9 @@
 		<li id="<%= comment.id %>">
 			<div class="comment-img"><%= link_to avatar_for(comment.user, 'xsml'), comment.user %></div>
 			<div class="comment-item">
-				<%= link_to comment.user.username %>
+				<%= link_to comment.user.username, user_path(comment.user) %>
 
-				<% if current_user == comment.user || current_user == @story.user %>
+				<% if current_user.following?(@story.user) %>
 					<span class="delete-btn">					
 					 	<%= link_to comment, method: :delete do %>
 							<i class="icon-remove"></i>

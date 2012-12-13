@@ -22,9 +22,11 @@ describe Story do
 	it{should respond_to(:title)}
 	it{should respond_to(:content)}
 	it{should respond_to(:user_id)}
+	it{should respond_to(:origin_user_id)}
 	it{should respond_to(:user)}
 	it{should respond_to(:comments)}
 	it{should respond_to(:votes)}
+	it{should respond_to(:anonymous)}
 	it{should respond_to(:content_image)}
 	it{should respond_to(:content_html)}
 	its(:user){should == user}

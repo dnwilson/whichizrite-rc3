@@ -21,10 +21,10 @@ describe "Pages" do
 			let(:user) { FactoryGirl.create(:user) }
 
 			before do
-				FactoryGirl.create(:story, user: user, title: "Some ipsum")
-				FactoryGirl.create(:story, user: user, content: "Lorem ipsum")
-				FactoryGirl.create(:story, user: user, title: "My title")
-				FactoryGirl.create(:story, user: user, content: "Dolor sit amet")
+				FactoryGirl.create(:story, user: user, title: "Some ipsum", origin_user_id: user.id)
+				FactoryGirl.create(:story, user: user, content: "Lorem ipsum", origin_user_id: user.id)
+				FactoryGirl.create(:story, user: user, title: "My title", origin_user_id: user.id)
+				FactoryGirl.create(:story, user: user, content: "Dolor sit amet", origin_user_id: user.id)
 				sign_in user
 				visit root_path
 			end

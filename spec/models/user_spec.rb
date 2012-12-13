@@ -39,6 +39,7 @@ describe User do
 	it{should respond_to(:admin)}
 	it{should respond_to(:username)}
 	it{should respond_to(:avatar)}
+	it{should respond_to(:hide)}
 	it{should respond_to(:sex)}
 	it{should respond_to(:name)}
 	it{should respond_to(:dob)}
@@ -51,6 +52,7 @@ describe User do
 	it{should respond_to(:stories)}
 	it{should respond_to(:votes)}
 	it{should respond_to(:comments)}
+
 
 	it{should be_valid}
 	it{should_not be_admin}
@@ -77,26 +79,26 @@ describe User do
 			end
 		end
 
-		# describe "status" do
-		# 	let(:unfollowed_post) do
-		# 		FactoryGirl.create(:story, user: FactoryGirl.create(:user))
-		# 	end
+		describe "status" do
+			let(:unfollowed_post) do
+				FactoryGirl.create(:story, user: FactoryGirl.create(:user))
+			end
 
-		# 	let(:followed_user) { FactoryGirl.create(:user) }
+			let(:followed_user) { FactoryGirl.create(:user) }
 
-		# 	before do
-		# 		@user.follow!(followed_user)
-		# 		3.times {followed_user.stories.create!(title: "Lorem ipsum", content: "Lorem ipsum")}
-		# 	end
+			before do
+				@user.follow!(followed_user)
+				3.times {followed_user.stories.create!(title: "Lorem ipsum", content: "Lorem ipsum")}
+			end
 
-		# 	its(:feed) { should include(newer_story) }
-		# 	its(:feed) { should include(older_story) }
-		# 	its(:feed) { should_not include(unfollowed_post) }
-		# 	its(:feed) do
-		# 		followed_user.stories.each do |story|
-		# 		  should include{ story }
-		# 		end
-		# 	end
-		# end
+			# its(:feed) { should include(newer_story) }
+			# its(:feed) { should include(older_story) }
+			its(:feed) { should_not include(unfollowed_post) }
+			its(:feed) do
+				followed_user.stories.each do |story|
+				  should include{ story }
+				end
+			end
+		end
 	end
 end

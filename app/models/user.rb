@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username,
-                  :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, :login
+  attr_accessible :email, :password, :password_confirmation, :current_password, :remember_me, :username,
+                  :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, :login, :private_user
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -100,8 +100,7 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
-  def to_param
-    username
-  end
-
+  # def to_param
+  #   username
+  # end
 end

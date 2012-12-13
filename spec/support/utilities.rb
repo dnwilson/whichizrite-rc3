@@ -1,4 +1,9 @@
+require 'spec_helper'
+
 include ApplicationHelper
+include Warden::Test::Helpers
+
+Warden.test_mode!
 
 #Returns the full title on a per page basis
 def full_title(page_title)

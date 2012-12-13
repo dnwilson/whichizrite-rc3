@@ -6,8 +6,8 @@ class CreateComments < ActiveRecord::Migration
       t.string :comment
 
       t.timestamps
-
-      add_index :comments, [:story_id, :user_id, :comment_id] 
     end
+
+    add_index :comments, [:story_id, :user_id, :id] 
   end
 end

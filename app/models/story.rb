@@ -29,6 +29,7 @@ class Story < ActiveRecord::Base
   acts_as_voteable
 
   validates :user_id, presence: true
+  # validates :origin_user_id, presence: true
   validates :title, presence: true, length: {minimum: 5, maximum:50}
   validates :content, presence: true, length: {maximum: 320}
   validates_attachment :content_image, content_type: {:content_type => ["image/jpeg", "image/png", 

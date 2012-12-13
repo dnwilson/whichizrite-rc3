@@ -1,13 +1,21 @@
 class StoriesController < ApplicationController
     before_filter :authenticate_user!, only: [:create, :destroy]
     before_filter :correct_user, only: :destroy
+    # before_filter :can_read, only: :show
 
 	def show
         @story = Story.find(params[:id])
-        @comment = Comment.new
-        respond_to do |format|
-            format.html # show.html.erb
-            format.json {render json: @story}
+        if @story.user.private_user = true && !current_user.following?(@story.user)
+            flash[:notice] = "This is a private. Please follow user to view"
+            redirect_to root_path
+        else        
+            if current_user.following?(@story.user) || current_user == @story.user
+                @comment = Comment.new
+            end
+            respond_to do |format|
+                format.html # show.html.erb
+                format.json {render json: @story}
+            end
         end
 	end
 
@@ -90,6 +98,11 @@ class StoriesController < ApplicationController
 
         def correct_user
             @story = current_user.id == Story.find_by_id(params[:id]).origin_user_id
-            redirect_to root_url if @story.nil?
+            redirect_to root_url if @story.nil? 
         end
+
+        # def can_read
+        #     @story = current_user.following?(Story.find_by_id(params[:id]).user) || current_user == Story.find_by_id(params[:id]).user
+        #     redirect_to root_url, flash[:failure] = "You do not have sufficient permissions to view" if @story.nil? 
+        # end
 end

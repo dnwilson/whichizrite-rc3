@@ -37,9 +37,11 @@
 					</span>
 				</span>
 				<%= render 'shared/comments' %>
-				<span class="comment-form">
-					<%= render 'shared/comment_form' %>
-				</span>
+				<% if current_user.following?(@story.user) || current_user == @story.user %>
+					<span class="comment-form">
+						<%= render 'shared/comment_form' %>
+					</span>
+				<% end %>
 			</span>			
 		</div>
 

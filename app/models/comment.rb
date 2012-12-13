@@ -12,6 +12,7 @@
 
 class Comment < ActiveRecord::Base
   include AutoHtml
+  include PgSearch
   
   attr_accessible :comment, :story_id, :comment_html
 

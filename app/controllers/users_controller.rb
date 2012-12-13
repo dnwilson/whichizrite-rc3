@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	before_filter :admin_user, only: :destroy
 
 	def show
-		@user = User.find_by_username(params[:id])
+		@user = User.find(params[:id])
 		@users = @user.followed_users.paginate(page: params[:page])
 		if @user == current_user
 			@stories = Story.stories_from_me(@user.id).paginate(page: params[:page])
@@ -15,6 +15,12 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.paginate(page: params[:page])
+	end
+
+	def destroy
+		User.find(params[:id]).destroy
+		flash[:success] = "User deleted"
+		redirect_to :back
 	end
 
 	def following
