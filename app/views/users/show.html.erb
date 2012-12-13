@@ -49,16 +49,16 @@
   </div>
 
   <div class="span6">
-    <% if @user.private_user? && !current_user.following?(@user) %>    
-    	<h1>This is a private user</h1>
-    <% else %>
+    <% if @user == current_user || !@user.private_user? || current_user.following?(@user) %>
       <% if @user.stories.any? %>
         <h3>Stories (<%= @user.stories.count %>)</h3>
         <ol class="stories">
           <%= render @user.stories %>
         </ol>
         <%= will_paginate @stories %>
-      <% end %>
+      <% end %>    
+    <% else %>
+      <h1>This is a private user</h1>
     <% end %>
   </div>
 

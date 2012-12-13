@@ -25,6 +25,12 @@
 #
 
 class User < ActiveRecord::Base
+
+  include PgSearch
+  pg_search_scope :user_search, :against => [:username, :email],
+                                :using => {
+                                  tsearch: {:dictionary => 'simple', :prefix => true}
+                                }
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

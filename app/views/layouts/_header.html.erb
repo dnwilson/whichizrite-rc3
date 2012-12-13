@@ -10,7 +10,7 @@
           </form> -->
           <% if user_signed_in? %>
             <%= form_tag stories_path, method: :get, :class => "navbar-search" do %>
-              <%= text_field_tag :query, params[:query], :class => "search-query span3" %>
+              <%= text_field_tag :query, params[:query], :placeholder => "search", :value => '', :class => "search-query span3" %>
               <div class="icon-search"></div>
             <% end %>
           <% end %>

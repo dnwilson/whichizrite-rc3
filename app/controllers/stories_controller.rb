@@ -48,38 +48,51 @@ class StoriesController < ApplicationController
 
     def vote_up
         @story = Story.find(params[:id])
-        current_user.vote_exclusively_for(@story)
-        respond_to do |format|
-            format.html { redirect_to @story }
-            format.js
+        if @story.user.private_user = true && !current_user.following?(@story.user)
+            flash[:notice] = "You need to follow user in order to carry out this function"
+            redirect_to user_path(@story.user)
+        else
+            current_user.vote_exclusively_for(@story)
+            respond_to do |format|
+                format.html { redirect_to @story }
+                format.js
+            end
         end
     end
 
     def vote_down
         @story = Story.find(params[:id])
-        current_user.vote_exclusively_against(@story)
-        respond_to do |format|
-            format.html { redirect_to @story}
-            format.js
+        if @story.user.private_user = true && !current_user.following?(@story.user)
+            flash[:notice] = "You need to follow user in order to carry out this function"
+            redirect_to user_path(@story.user)
+        else
+            current_user.vote_exclusively_against(@story)
+            respond_to do |format|
+                format.html { redirect_to @story}
+                format.js
+            end
         end
     end
 
     def unvote
-        @story = Story.find(params[:id])
-        current_user.unvote_for(@story)
-        respond_to do |format|
-            format.html { redirect_to @story}
-            format.js
-        end 
+        if @story.user.private_user = true && !current_user.following?(@story.user)
+            flash[:notice] = "You do not have permission to carry out this function."
+            redirect_to root_path
+        else
+            @story = Story.find(params[:id])
+            current_user.unvote_for(@story)
+            respond_to do |format|
+                format.html { redirect_to @story}
+                format.js
+            end
+        end
     end
 
     def index
-        @pg_search_documents = PgSearch.multisearch(params[:query]) #.paginate(page: params[:page])  
-        # @stories = @pg_search_documents
+        @pg_search_documents = PgSearch.multisearch(params[:query]) #.paginate(page: params[:page])
     end
 
     
-
     # def edit
     #     @story = Story.find(params[:id])
     # end

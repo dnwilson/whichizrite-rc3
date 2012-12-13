@@ -14,7 +14,8 @@ class Story < ActiveRecord::Base
   include AutoHtml
   include PgSearch
 
-  multisearchable :against => [:title, :content, :id]
+  multisearchable :against => [:title, :content],
+                  :if => :public_user?
 
   attr_accessible :content, :title, :content_image, :content_html, :anonymous
   belongs_to :user
@@ -48,6 +49,10 @@ class Story < ActiveRecord::Base
 
   def self.stories_from_me(user)
     where("origin_user_id = user_id OR user_id = user_id")
+  end
+
+  def public_user?
+    self.user.private_user == false
   end
 
   # def self.search(query)

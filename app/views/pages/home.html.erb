@@ -1,22 +1,29 @@
 <% if signed_in? %>
 	<div class="row-fluid">
-		<aside class="span4">
+		<aside class="span3">
 			<div class="update-box">
 				<section class="profile-info">				
 					<%= render 'shared/user_info' %>
 					<%= render 'shared/stats' %>
 				</section>
-				<section class="story-form">				
-					<%= render 'shared/story_form' %>
-				</section>
 			</div>			
 		</aside>
 		<div class="span6">
-			<h1 class="feed-header">latest entries</h1>
+			<section class="story-form">				
+				<%= render 'shared/story_form' %>
+			</section>
+			<!-- <h1 class="feed-header">latest entries</h1> -->
 			<span class="ajaxreloadstories">	
 				<%= render 'shared/feed' %>
-			</span>			
-			
+			</span>				
+		</div>
+
+		<div class="span3">
+			user search
+			<%= form_tag search_path, method: :get, :class => "user-search" do %>
+              <%= text_field_tag :query, params[:query], :placeholder => "search", :value => '', :class => "user-query" %>
+              <div class="icon-search"></div>
+            <% end %>
 		</div>
 	</div>
 <% else %>

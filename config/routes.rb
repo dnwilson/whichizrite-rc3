@@ -11,6 +11,8 @@ Wir2::Application.routes.draw do
     get "delete", :to => "users/registrations#destroy"
     get "settings", :to => "users/registrations#edit"
     get "settings/password", :to=> "users/registrations#password"
+    get "search", :to=> "users#search"
+    match '/search', to: 'users#search'
     get "profile", :to =>  "users#show"
   end
 

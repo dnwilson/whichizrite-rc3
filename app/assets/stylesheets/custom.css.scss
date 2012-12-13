@@ -612,38 +612,43 @@ span.votecount{
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
-  .profile-info{
-    padding: 5px;
-    border: 1px solid $grayMediumLight;
-    background-color: white;
-  }
+  //.profile-info{
+    //padding: 5px;
+    //border: 1px solid $grayMediumLight;
+    //background-color: white;
+  //}
   .user-info{
     float: left;
-    display: block;
-    margin: 0 0 0 5px;
-    text-align: center;
-    width: 160px;
+    padding: 5px;
+    background-color: white;
+    display: inline-block;
     border: 1px solid $lightGray;
-    padding: 5px 0 5px 0;
-    h2{
-      color: #333333;
+    width: 188px;
+    .avatar{
+      float: left;
+      display: block;
+      img{
+        height: 50px;
+        width: 50px;
+      }
+    }
+    .user-dets{
+      float: left;
+      display: block;
+      margin: 5px 20px;
+      vertical-align: middle;
+      h2{
+        color: #333333;
+      }
     }
   }
-  .avatar{
-    float: left;
-    display: inline-block;
-    height: 100px;
-    width: 100px;
-  }
   .stats{
-    margin-left: 5px;
     text-align: center;
     float: left;
     display: block;
     border-right: 1px solid $lightGray;
     border-bottom: 1px solid $lightGray;
     border-left: 1px solid $lightGray;
-
     a{
       background-color: $grayLighter;
       color: gray;
@@ -652,7 +657,7 @@ span.votecount{
       text-align: center;
       border: 3px solid $grayLighter;
       display: inline-block;
-      width: 75px;   
+      width: 94px;   
       height: 42px;
       &:first-child{
         border-right: 1px solid $lightGray;

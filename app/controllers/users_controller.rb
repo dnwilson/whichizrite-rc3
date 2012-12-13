@@ -17,6 +17,10 @@ class UsersController < ApplicationController
 		@users = User.paginate(page: params[:page])
 	end
 
+	def search
+		@users = User.user_search(params[:query]).paginate(page: params[:page])
+	end
+
 	def destroy
 		User.find(params[:id]).destroy
 		flash[:success] = "User deleted"
