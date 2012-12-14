@@ -418,6 +418,45 @@ h1.feed-header{
   font-size: 2.4em;
 }
 
+.story-form{
+  padding: 15px;
+  background-color: $lightGray;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  .image-upload{
+    float: left;
+      a.file-input-wrapper.btn {
+      margin-left: 0px;
+    }
+  }
+  div.submit{
+    float: none;
+    text-align: right;
+  }
+  form {
+    margin: 0px;
+  }
+  input[type="text"]{
+    height: 30px;
+    padding: 5px;
+  }
+  textarea#story_content{
+    height: 60px;
+    padding: 5px;
+  }
+  .submit{
+    margin-top: -35px;
+  }
+  input.btn.btn-primary{
+    width: 60px;
+    float: right;
+  }
+  a.close{
+    font-size: 1.1em;
+    text-transform: lowercase;
+  }
+}
+
 .stories{
   //background-color: $grayLighter;
   display: block;
@@ -636,6 +675,7 @@ span.votecount{
       float: left;
       display: block;
       margin: 5px 20px;
+      text-align: center;
       vertical-align: middle;
       h2{
         color: #333333;
@@ -674,42 +714,6 @@ span.votecount{
       }
       &:visited{
       }
-    }
-  }
-  div.submit{
-    float: none;
-    text-align: right;
-  }
-  form {
-    margin: 0px;
-  }
-  .story-form{
-    margin-top: 10px;
-    .image-upload{
-      float: left;
-        a.file-input-wrapper.btn {
-        margin-left: 0px;
-      }
-    }
-    input[type="text"]{
-      height: 30px;
-      padding: 5px;
-    }
-    textarea{
-      height: 80px;
-      margin-bottom: 10px;
-      padding: 5px;
-    }
-    .submit{
-      margin-top: -35px;
-    }
-    input.btn.btn-primary{
-      width: 60px;
-      float: right;
-    }
-    a.close{
-      font-size: 1.1em;
-      text-transform: lowercase;
     }
   }
 }
