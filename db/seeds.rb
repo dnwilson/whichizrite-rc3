@@ -23,3 +23,22 @@ user2 = User.create!(name: 'anonymous',
 					sex: 'male',
 					location: 'Nonewhereland, Somewhere'
 					)
+
+user3 = User.create!(name: 'tester1', 
+					username: 'tester1',
+					email: 'tester1@whichizrite.com',
+					password: 'foobar', 
+					password_confirmation: 'foobar',
+					sex: 'female',
+					location: 'Nonewhereland, Somewhere'
+					)
+
+user4 = User.create!(name: 'tester2', 
+					username: 'tester2',
+					email: 'tester2@whichizrite.com',
+					password: 'foobar', 
+					password_confirmation: 'foobar',
+					sex: 'male',
+					private_user: true,
+					location: 'Nonewhereland, Somewhere'
+					)

@@ -1,6 +1,7 @@
 Wir2::Application.routes.draw do
 
-  devise_for :users, :controllers => {:registrations => "users/registrations"},
+  devise_for :users, :controllers => {:registrations => "users/registrations", 
+                                      :omniauth_callbacks => "users/omniauth_callbacks"},
                      :path => '', :path_names => {:sign_in => "login", :sign_out => "logout",
                                                   :sign_up => "register"}
 

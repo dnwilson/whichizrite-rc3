@@ -2,10 +2,13 @@
 
 <h1>Search results</h1>
 
-<%= will_paginate %>
+<% if @users.any? %>
 
-<ul class="users">
-	<%= render @users %>
-</ul>
+	<ul class="users">
+		<%= render @users %>
+	</ul>
 
-<%= will_paginate %>
+	<%= will_paginate @users %>
+<% else %>
+	Could not find anything matching what you searched for.
+<% end %>

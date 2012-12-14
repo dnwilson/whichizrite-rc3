@@ -36,12 +36,13 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   acts_as_voter
   
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, 
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  # Setup accessible (or protected) attributes for your model
+  # Setup accessible (or protected) attributes for your model,
   attr_accessible :email, :password, :password_confirmation, :current_password, :remember_me, :username,
-                  :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, :login, :private_user
+                  :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, 
+                  :login, :private_user, :provider, :uid
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -85,6 +86,32 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create(name:auth.extra.raw_info.name,
+                           provider:auth.provider,
+                           uid:auth.uid,
+                           username: auth.info.nickname,
+                           email:auth.info.email,
+                           sex: auth.gender,
+                           location: auth.info.location,
+                           website: auth.link,
+                           password:Devise.friendly_token[0,20]
+                           )
+    end
+    user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
 
 ### This is the correct method you override with the code above
 ### def self.find_for_database_authentication(warden_conditions)
