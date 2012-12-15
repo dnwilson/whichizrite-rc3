@@ -8,6 +8,9 @@
       <li class="<%= 'active' if current_page?(settings_password_path) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
       </li>
+      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Privacy'.html_safe, settings_privacy_path %>
+      </li>
     </ul>
   </div>
   <div class="user-edit span8">
@@ -53,8 +56,6 @@
     <%= f.text_field :email %><br />
 
     <%= f.input :sex, :collection => [['male'], ['female']] %>
-
-    <%= f.input :private_user, :as => :boolean %>
 
     <%= f.label :website %>
     <%= f.text_field :website %><br />

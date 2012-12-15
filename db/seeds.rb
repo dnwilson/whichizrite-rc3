@@ -39,6 +39,6 @@ user4 = User.create!(name: 'tester2',
 					password: 'foobar', 
 					password_confirmation: 'foobar',
 					sex: 'male',
-					private_user: true,
+					private_followable: true,
 					location: 'Nonewhereland, Somewhere'
 					)

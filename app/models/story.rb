@@ -52,7 +52,7 @@ class Story < ActiveRecord::Base
   end
 
   def public_user?
-    self.user.private_user == false
+    self.user.private_followable == false
   end
 
   # def self.search(query)

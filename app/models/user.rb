@@ -35,14 +35,18 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   acts_as_voter
+
+  acts_as_follower_plus
+  acts_as_followable_plus
+  
   
   devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model,
-  attr_accessible :email, :password, :password_confirmation, :current_password, :remember_me, :username,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username,
                   :sex, :name, :dob, :bio, :avatar, :country_name, :website, :location, 
-                  :login, :private_user, :provider, :uid
+                  :login, :private_followable, :provider, :uid, :admin, :profilepic
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -55,12 +59,12 @@ class User < ActiveRecord::Base
                     path: ":rails_root/public/assets/images/users/:id/album/:style/:basename.:extension"
 
   has_many :stories, dependent: :destroy
-  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :followed_users, through: :relationships, source: :followed
-  has_many :reverse_relationships, foreign_key: "followed_id",
-                                   class_name: "Relationship",
-                                   dependent:  :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower
+  # has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  # has_many :followed_users, through: :relationships, source: :followed
+  # has_many :reverse_relationships, foreign_key: "followed_id",
+  #                                  class_name: "Relationship",
+  #                                  dependent:  :destroy
+  # has_many :followers, through: :reverse_relationships, source: :follower
   has_many :comments
 
   # before_save{|user| user.email = email.downcase}
@@ -121,17 +125,17 @@ class User < ActiveRecord::Base
   	Story.from_users_followed_by(self)
   end
 
-  def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
-  end
+  # def following?(other_user)
+  #   relationships.find_by_followed_id(other_user.id)
+  # end
 
-  def follow!(other_user)
-    relationships.create!(followed_id: other_user.id)  
-  end
+  # def follow!(other_user)
+  #   relationships.create!(followed_id: other_user.id)  
+  # end
 
-  def unfollow!(other_user)
-    relationships.find_by_followed_id(other_user.id).destroy
-  end
+  # def unfollow!(other_user)
+  #   relationships.find_by_followed_id(other_user.id).destroy
+  # end
 
   # def to_param
   #   username

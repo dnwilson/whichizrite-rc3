@@ -12,14 +12,19 @@ Wir2::Application.routes.draw do
     get "delete", :to => "users/registrations#destroy"
     get "settings", :to => "users/registrations#edit"
     get "settings/password", :to=> "users/registrations#password"
+    get "settings/privacy", :to=> "users/registrations#privacy"
     get "search", :to=> "users#search"
     match '/search', to: 'users#search'
     get "profile", :to =>  "users#show"
-  end
+  end 
 
   resources :users do
     member do
-      get :following, :followers
+      get :follow
+      get :unfollow
+      get :unpend
+      get :make_public
+      get :make_private
     end
   end
   

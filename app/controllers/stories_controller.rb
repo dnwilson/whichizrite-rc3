@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
 
 	def show
         @story = Story.find(params[:id])
-        if @story.user.private_user = true && !current_user.following?(@story.user)
+        if @story.user.private_followable = true && !current_user.following?(@story.user)
             flash[:notice] = "This is a private. Please follow user to view"
             redirect_to root_path
         else        
@@ -48,7 +48,7 @@ class StoriesController < ApplicationController
 
     def vote_up
         @story = Story.find(params[:id])
-        if @story.user.private_user = true && !current_user.following?(@story.user)
+        if @story.user.private_followable = true && !current_user.following?(@story.user)
             flash[:notice] = "You need to follow user in order to carry out this function"
             redirect_to user_path(@story.user)
         else
@@ -62,7 +62,7 @@ class StoriesController < ApplicationController
 
     def vote_down
         @story = Story.find(params[:id])
-        if @story.user.private_user = true && !current_user.following?(@story.user)
+        if @story.user.private_followable = true && !current_user.following?(@story.user)
             flash[:notice] = "You need to follow user in order to carry out this function"
             redirect_to user_path(@story.user)
         else
@@ -75,7 +75,7 @@ class StoriesController < ApplicationController
     end
 
     def unvote
-        if @story.user.private_user = true && !current_user.following?(@story.user)
+        if @story.user.private_followable = true && !current_user.following?(@story.user)
             flash[:notice] = "You do not have permission to carry out this function."
             redirect_to root_path
         else

@@ -12,14 +12,11 @@
       <% unless current_user?(@user) %>
         <div id="follow_form">
           <% if current_user.following?(@user) %>
-            <%= form_for(current_user.relationships.find_by_followed_id(@user), html: {method: :delete}) do |f| %>
-              <%= f.submit "Unfollow", class: "btn btn-large" %>
-            <% end %>
+            <%= link_to "Unfollow", unfollow_user_path(@user), :class => "btn btn-large" %>
+          <% elsif current_user.pending?(@user) %>
+            <%= link_to "Pending", unpend_user_path(@user), :class => "btn btn-large" %>
           <% else %>
-            <%= form_for(current_user.relationships.build(followed_id: @user.id)) do |f| %>
-              <div><%= f.hidden_field :followed_id %></div>
-              <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-            <% end %>
+            <%= link_to "Follow", follow_user_path(@user), :class => "btn btn-large btn-primary" %>
           <% end %>
         </div>
       <% end %>
@@ -44,12 +41,12 @@
       <li>Sex: <p><%= @user.sex.to_s %></p></li>
       <li>Location: <p><%= @user.location %></p></li>
       <li>Bio: <p><%= @user.bio %></p></li>
-      <li>Type: <p><%= @user.private_user %></p></li>            
+      <li>Type: <p><%= @user.private_followable %></p></li>            
     </span> 
   </div>
 
   <div class="span6">
-    <% if @user == current_user || !@user.private_user? || current_user.following?(@user) %>
+    <% if @user == current_user || !@user.private_followable? || current_user.following?(@user) %>
       <% if @user.stories.any? %>
         <h3>Stories (<%= @user.stories.count %>)</h3>
         <ol class="stories">
@@ -58,7 +55,11 @@
         <%= will_paginate @stories %>
       <% end %>    
     <% else %>
-      <h1>This is a private user</h1>
+      <ol class="stories">
+        <li>
+          <h1>This is a private user</h1>
+        </li>        
+      </ol>
     <% end %>
   </div>
 

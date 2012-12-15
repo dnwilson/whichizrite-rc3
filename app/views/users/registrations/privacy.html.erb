@@ -1,0 +1,28 @@
+<div class="row">
+
+  <div class="edit-nav span4">
+    <ul class="nav nav-pills side-nav nav-stacked">
+      <li class="<%= 'active' if current_page?(settings_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Privacy'.html_safe, settings_privacy_path %>
+      </li>
+    </ul>
+    </ul>
+  </div>
+  <div class="user-edit span8">
+    <div class="edit-header">
+      <h2>Make Private</h2>
+      <p>Change your current password</p>
+    </div>
+
+    <% if current_user.private? %>
+      <%= link_to "make public", make_public_user_path(current_user), :class => "btn btn-large" %>
+    <% else %>
+      <%= link_to "make private", make_private_user_path(current_user), :class => "btn btn-large btn-primary" %>
+    <% end %>
+</div>

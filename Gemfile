@@ -24,6 +24,8 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'acts_as_follower'
+gem 'acts_as_follower_plus', :git => 'git://github.com/jasonm23/acts_as_follower_plus.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
