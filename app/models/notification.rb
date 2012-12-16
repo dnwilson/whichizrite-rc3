@@ -3,6 +3,8 @@ class Notification < ActiveRecord::Base
 
   belongs_to :notifiable, :polymorphic => true
 
+  default_scope order: 'notifications.created_at DESC'
+
   def self.alerts_for_me(user)
   	where("receiver_id = #{user.id} AND sender_id != #{user.id}")
   end

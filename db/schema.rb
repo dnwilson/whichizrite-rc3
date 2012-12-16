@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216004043) do
+ActiveRecord::Schema.define(:version => 20121216164325) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(:version => 20121216004043) do
     t.integer  "receiver_id"
     t.integer  "notifiable_id"
     t.string   "notifiable_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "seen",            :default => false
   end
 
   create_table "pg_search_documents", :force => true do |t|

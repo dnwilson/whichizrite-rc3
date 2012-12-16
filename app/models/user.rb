@@ -146,17 +146,49 @@ class User < ActiveRecord::Base
   end
 
   def notify_comment(story)
-    Notification.new(sender_id: self.id,
-                     receiver_id: story.user.id,
-                     notifiable_id: story.id,
-                     notifiable_type: "comment").save     
+    old_alerts = Notification.where("receiver_id = #{story.user.id} AND
+                                    sender_id = #{self.id} AND 
+                                    notifiable_id = #{story.id} AND
+                                    notifiable_type = 'comment'")
+    if old_alerts.empty?
+      Notification.new(sender_id: self.id,
+                         receiver_id: story.user.id,
+                         notifiable_id: story.id,
+                         notifiable_type: "comment").save
+    else
+      old_alerts.each do |f|
+        f.delete
+      end
+      Notification.new(sender_id: self.id,
+                         receiver_id: story.user.id,
+                         notifiable_id: story.id,
+                         notifiable_type: "comment").save
+
+    end
   end
 
   def notify_vote(story)
-    Notification.new(sender_id: self.id,
-                     receiver_id: story.user.id,
-                     notifiable_id: story.id,
-                     notifiable_type: "vote").save     
+    old_alert = Notification.where("receiver_id = #{story.user.id} AND
+                                    sender_id = #{self.id} AND 
+                                    notifiable_id = #{story.id} AND
+                                    notifiable_type = 'vote'")
+    if old_alert.exists?
+      Notification.new(sender_id: self.id,
+                       receiver_id: story.user.id,
+                       notifiable_id: story.id,
+                       notifiable_type: "vote").save
+    end     
+  end
+
+  def unseen_alerts
+    self.alerts.where("seen = false").count
+  end
+
+  def reset_alerts
+    self.alerts.each do |f| 
+      f.seen = true
+      f.save
+    end
   end
 
   def alerts

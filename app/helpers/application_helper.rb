@@ -15,7 +15,7 @@ module ApplicationHelper
 	  	if notification.notifiable_type == "new_follower"
 	  	 	"#{link_to sender.username, user_path(sender)} is now following you."
 	  	elsif notification.notifiable_type == "unfollowed"
-	  		"#{link_to sender.username, user_path(sender)} has unfollowed you."
+	  		"#{link_to sender.username, user_path(sender)} is no longer following you."
 	  	elsif notification.notifiable_type == "vote"
 	  		alert_item = Story.find(notification.notifiable_id)
 	  	 	"#{link_to sender.username, user_path(sender)} voted on your #{link_to "post", story_path(alert_item)}."
