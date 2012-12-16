@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+	include AutoHtml
+
 	def full_title(page_title)
 		base_title = "whichizrite"
 		if page_title.empty?
@@ -8,6 +10,20 @@ module ApplicationHelper
 			"#{base_title} | #{page_title}"
 		end
 	end
+
+	def message(sender, notification)
+	  	if notification.notifiable_type == "new_follower"
+	  	 	"#{link_to sender.username, user_path(sender)} is now following you."
+	  	elsif notification.notifiable_type == "unfollowed"
+	  		"#{link_to sender.username, user_path(sender)} has unfollowed you."
+	  	elsif notification.notifiable_type == "vote"
+	  		alert_item = Story.find(notification.notifiable_id)
+	  	 	"#{link_to sender.username, user_path(sender)} voted on your #{link_to "post", story_path(alert_item)}."
+	  	elsif notification.notifiable_type == "comment"
+	  		alert_item = Story.find(notification.notifiable_id)
+	  		"#{link_to sender.username, user_path(sender)} commented on your #{link_to "post", story_path(alert_item)}."
+	  	end 
+  	end
 
 	def devise_mapping
 		@devise_mapping ||= Devise.mappings[:user]

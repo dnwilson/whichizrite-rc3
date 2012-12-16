@@ -47,6 +47,7 @@ class UsersController < ApplicationController
 		# RecommenderMailer.new_follower(@user).deliver if @user.notify_new_follower
 		redirect_to :back
 		flash[:success] = "You are now following #{@user.username}."
+		current_user.notify_follow(@user)
 	end
 
 	def unfollow
@@ -54,6 +55,7 @@ class UsersController < ApplicationController
 		current_user.stop_following(@user)
 		redirect_to :back
 		flash[:success] = "You are no longer following #{@user.username}."
+		current_user.notify_unfollow(@user)
 	end
 
 	def unpend
@@ -61,6 +63,7 @@ class UsersController < ApplicationController
 		current_user.unpend(@user)
 		redirect_to :back
 		flash[:success] = "You are no longer following #{@user.username}."
+		current_user.notify_pending(@user)
 	end
 
 

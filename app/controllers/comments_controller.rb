@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
 	def create
         @comment = current_user.comments.create(params[:comment])
         @story = @comment.story
-
+        current_user.notify_comment(@story)
         respond_to do |format|
             format.html {redirect_to @comment.story}
             format.js

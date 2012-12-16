@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
 
   acts_as_follower_plus
   acts_as_followable_plus
+
+  has_many :notifications, :as => :notifiable
   
   
   devise :database_authenticatable, :registerable, 
@@ -125,18 +127,41 @@ class User < ActiveRecord::Base
   	Story.from_users_followed_by(self)
   end
 
-  # def following?(other_user)
-  #   relationships.find_by_followed_id(other_user.id)
-  # end
+  def notify_follow(user)
+    Notification.new(sender_id: self.id,
+                       receiver_id: user.id,
+                       notifiable_type: "new_follower").save 
+  end
 
-  # def follow!(other_user)
-  #   relationships.create!(followed_id: other_user.id)  
-  # end
+  def notify_unfollow(user)
+    Notification.new(sender_id: self.id,
+                       receiver_id: user.id,
+                       notifiable_type: "unfollowed").save     
+  end
 
-  # def unfollow!(other_user)
-  #   relationships.find_by_followed_id(other_user.id).destroy
-  # end
+  def notify_pending(user)
+    Notification.new(sender_id: self.id,
+                       receiver_id: user.id,
+                       notifiable_type: "pending_user").save     
+  end
 
+  def notify_comment(story)
+    Notification.new(sender_id: self.id,
+                     receiver_id: story.user.id,
+                     notifiable_id: story.id,
+                     notifiable_type: "comment").save     
+  end
+
+  def notify_vote(story)
+    Notification.new(sender_id: self.id,
+                     receiver_id: story.user.id,
+                     notifiable_id: story.id,
+                     notifiable_type: "vote").save     
+  end
+
+  def alerts
+    Notification.alerts_for_me(self)
+  end
   # def to_param
   #   username
   # end

@@ -7,6 +7,8 @@ class Follow < ActiveRecord::Base
   belongs_to :followable, :polymorphic => true
   belongs_to :follower,   :polymorphic => true
 
+  has_many :notifications, :as => :notifiable
+
   def block!
     self.update_attribute(:blocked, true)
   end

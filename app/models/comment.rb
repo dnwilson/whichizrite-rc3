@@ -19,6 +19,8 @@ class Comment < ActiveRecord::Base
   belongs_to :story
   belongs_to :user
 
+  has_many :notifications, :as => :notifiable
+
   acts_as_voteable
   
   validates :user_id, presence: true

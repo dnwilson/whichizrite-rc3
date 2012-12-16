@@ -8,6 +8,8 @@ class Vote < ActiveRecord::Base
   belongs_to :voteable, :polymorphic => true
   belongs_to :voter, :polymorphic => true
 
+  has_many :notifications, :as => :notifiable
+
   attr_accessible :vote, :voter, :voteable
 
 

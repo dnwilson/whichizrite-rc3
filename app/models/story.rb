@@ -27,6 +27,8 @@ class Story < ActiveRecord::Base
 
   has_many :comments
 
+  has_many :notifications, :as => :notifiable
+
   acts_as_voteable
 
   validates :user_id, presence: true
@@ -41,7 +43,7 @@ class Story < ActiveRecord::Base
 
   #Returns stories from the users being followed by the given user
   def self.from_users_followed_by(user)
-    followed_user_ids = "SELECT followed_id FROM relationships
+    followed_user_ids = "SELECT followable_id FROM follows
                          WHERE follower_id = :user_id"
     where("user_id IN (#{followed_user_ids}) OR origin_user_id = :user_id", 
           user_id: user.id)

@@ -27,6 +27,8 @@ Wir2::Application.routes.draw do
       get :make_private
     end
   end
+
+  resources :notifications
   
   resources :pages
   resources :stories do

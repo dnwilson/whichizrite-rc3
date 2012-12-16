@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215155342) do
+ActiveRecord::Schema.define(:version => 20121216004043) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(:version => 20121215155342) do
 
   add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "pg_search_documents", :force => true do |t|
     t.text     "content"

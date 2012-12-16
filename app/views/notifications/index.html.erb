@@ -1,0 +1,13 @@
+<% if @notifications.any? %>
+
+	<ul class="notifications">
+		<% @notifications.each do |notification| 
+		sender = User.find(notification.sender_id) %>
+		<li><%= auto_html(message(sender, notification)){simple_format} %> <%= time_ago_in_words(notification.created_at) %> ago</li>
+	</ul>
+	<% end %>
+
+	<%= will_paginate @notifications %>
+<% else %>
+	You have no new notifications
+<% end %>
