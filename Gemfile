@@ -25,7 +25,8 @@ gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'acts_as_follower'
-gem 'acts_as_follower_plus', :git => 'git://github.com/jasonm23/acts_as_follower_plus.git'
+gem 'acts_as_follower_plus', :git => 'git@github.com:fiyahdamage/acts_as_follower_plus.git'
+gem 'private_pub'
 
 # Gems used only for assets and not required
 # in production environments by default.

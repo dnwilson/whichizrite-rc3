@@ -1,7 +1,8 @@
 //The first line updates the list
-// $('#new_story').validate();
-$(".ajaxreloadstories").html("<%= escape_javascript(render partial: 'shared/feed') %>");
-
+// $('#new_story').validate()
+<% publish_to "/#{@story.user_id}/posts" do %>
+$(".stories").prepend("<%= escape_javascript(render partial: 'shared/feed_item', locals: {feed_item: @story}) %>");
 //This next line clears the textarea and textfield
 $('textarea#story_content').val('');
 $('input#story_title').val('');
+<% end %>
