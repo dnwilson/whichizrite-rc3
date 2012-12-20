@@ -1,6 +1,7 @@
 module ApplicationHelper
 
 	include AutoHtml
+	include PrivatePub
 
 	def full_title(page_title)
 		base_title = "whichizrite"

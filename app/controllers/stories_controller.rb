@@ -27,6 +27,7 @@ class StoriesController < ApplicationController
         end
         respond_to do |format|
         	if @story.save
+                
                 format.html {redirect_to root_path, :notice => "Story created!"}
                 format.json {render json: @story, status: :created, location: @story}
                 format.js
