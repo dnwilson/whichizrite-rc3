@@ -3,6 +3,10 @@ module SessionsHelper
 		user == current_user
 	end
 
+	def notifications?(user)
+		@notifications = current_user.alerts.paginate(page: params[:page])
+	end
+
 	def resource_name
     	:user
   	end

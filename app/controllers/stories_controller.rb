@@ -1,11 +1,11 @@
 class StoriesController < ApplicationController
-    before_filter :authenticate_user!, only: [:create, :destroy]
+    before_filter :authenticate_user!, only: [:create, :destroy, :vote_down, :vote_up]
     before_filter :correct_user, only: :destroy
     # before_filter :can_read, only: :show
 
 	def show
         @story = Story.find(params[:id])
-        if @story.user == current_user || @story.user.private_followable == false || current_user.following?(@story.user)
+        if @story.user.private_followable == false || current_user.following?(@story.user)
             @comment = Comment.new
             respond_to do |format|
                 format.html # show.html.erb
@@ -47,7 +47,15 @@ class StoriesController < ApplicationController
     def vote_up
         @story = Story.find(params[:id])
         if @story.user == current_user || @story.user.private_followable == false || current_user.following?(@story.user)
-            current_user.vote_exclusively_for(@story)
+            if current_user.voted_against?(@story)
+                @story.update_attribute("downcount", @story.downcount - 1)
+                @story.update_attribute("upcount", @story.upcount + 1)
+                @story.save
+            else
+                @story.update_attribute("upcount", @story.upcount + 1)
+                @story.save
+            end                
+            current_user.vote_exclusively_for(@story)            
             current_user.notify_vote(@story)
             respond_to do |format|
                 format.html { redirect_to @story }
@@ -62,7 +70,14 @@ class StoriesController < ApplicationController
     def vote_down
         @story = Story.find(params[:id])
         if @story.user == current_user || @story.user.private_followable == false || current_user.following?(@story.user)
-        # if @story.user.private_followable = true && !current_user.following?(@story.user)
+            if current_user.voted_for?(@story)
+                @story.update_attribute("upcount", @story.upcount - 1)
+                @story.update_attribute("downcount", @story.downcount + 1)
+                @story.save
+            else
+                @story.update_attribute("downcount", @story.downcount + 1)
+                @story.save
+            end 
             current_user.vote_exclusively_against(@story)
             current_user.notify_vote(@story)
             respond_to do |format|
@@ -78,6 +93,13 @@ class StoriesController < ApplicationController
     def unvote
         @story = Story.find(params[:id])
         if @story.user == current_user || @story.user.private_followable == false || current_user.following?(@story.user)
+            if current_user.voted_for?(@story)
+                @story.update_attribute("upcount", @story.upcount - 1)
+                @story.save
+            else
+                @story.update_attribute("downcount", @story.downcount - 1)
+                @story.save
+            end
             current_user.unvote_for(@story)
             respond_to do |format|
                 format.html { redirect_to @story}

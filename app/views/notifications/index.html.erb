@@ -1,5 +1,4 @@
 <% if @notifications.any? %>
-
 	<ul class="notifications">
 		<% @notifications.each do |notification| 
 		sender = User.find(notification.sender_id) %>

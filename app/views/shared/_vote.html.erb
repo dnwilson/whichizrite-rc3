@@ -1,23 +1,56 @@
-<% if feed_item.user == current_user || feed_item.user.private_followable == false || current_user.following?(feed_item.user)%>
+<% if user_signed_in? && (feed_item.user == current_user || feed_item.user.private_followable == false || current_user.following?(feed_item.user)) %>
 	<% if feed_item.voted_by?(current_user) %>
 		<% if current_user.voted_for?(feed_item) %>
-			<%= link_to unvote_story_path(feed_item), class: "wir", remote: true do %><i class="icon-wir" style= "background-position: -16px -16px"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to vote_down_story_path(feed_item), class: "wiw", remote: true do %>
-				<i class="icon-wiw"></i><% end %>
+			<!-- If signed in and voted for -->
+			<span class="vote-btn" style= "background-color: green;">
+				<%= link_to unvote_story_path(feed_item), class: "wir", style: "color: white", remote: true do %>
+					<i class="icon-wir"></i>
+					<% if feed_item.upcount > 0 %><%= feed_item.upcount %><% end %>
+				<% end %>
+			</span>
+			<span class="vote-btn">
+				<%= link_to vote_down_story_path(feed_item), class: "wiw", style: "color: white", remote: true do %><i class="icon-wiw"></i>
+					<% if feed_item.downcount > 0 %><%= feed_item.downcount %><% end %>
+				<% end %>
+			</span>
 		<% else %>
-			<%= link_to vote_up_story_path(feed_item), class: "wir", remote: true do %><i class="icon-wir"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to unvote_story_path(feed_item), class: "wiw", remote: true do %><i class="icon-wiw" style= "background-position: -16px 0px"></i><% end %>
-			<% end %>
+			<!-- If signed in & voted against -->
+			<span class="vote-btn">
+				<%= link_to vote_up_story_path(feed_item), class: "wir", remote: true do %>
+					<i class="icon-wir"></i>
+					<% if feed_item.upcount > 0 %><%= feed_item.upcount %><% end %>
+				<% end %>
+			</span>
+			<span class="vote-btn"  style= "background-color: red;">
+				<%= link_to unvote_story_path(feed_item), class: "wiw", style: "color: white", remote: true do %>
+					<i class="icon-wiw" style= "background-position: -16px 0px"></i>
+					<% if feed_item.downcount > 0 %><%= feed_item.downcount %><% end %>
+				<% end %>
+			</span>
+		<% end %>
 	<% else %>
-		<%= link_to vote_up_story_path(feed_item), class: "wir", remote: true do %><i class="icon-wir"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to vote_down_story_path(feed_item), class: "wiw", remote: true do %><i class="icon-wiw"></i><% end %>
+		<!-- If signed in but hasn't voted yet -->
+		<span class="vote-btn">
+			<%= link_to vote_up_story_path(feed_item), class: "wir", remote: true do %>
+				<i class="icon-wir"></i>
+			<% end %><% if feed_item.upcount > 0 %><%= feed_item.upcount %><% end %>
+		</span>
+		<span class="vote-btn">
+			<%= link_to vote_down_story_path(feed_item), class: "wiw", remote: true do %>
+				<i class="icon-wiw"></i>
+			<% end %><% if feed_item.downcount > 0 %><%= feed_item.downcount %><% end %>
+		</span>
 	<% end %>
+	<!-- For none signed in or users thats not following -->
 <% else %>
-	<% if feed_item.voted_by?(current_user) %>
-		<% if current_user.voted_for?(feed_item) %>
-			<%= link_to unvote_story_path(feed_item), class: "wir" do %><i class="icon-wir" style= "background-position: -16px -16px"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to vote_down_story_path(feed_item), class: "wiw" do %>
-				<i class="icon-wiw"></i><% end %>
-		<% else %>
-			<%= link_to vote_up_story_path(feed_item), class: "wir" do %><i class="icon-wir"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to unvote_story_path(feed_item), class: "wiw" do %><i class="icon-wiw" style= "background-position: -16px 0px"></i><% end %>
-			<% end %>
-	<% else %>
-		<%= link_to vote_up_story_path(feed_item), class: "wir" do %><i class="icon-wir"></i><% end %><%= render partial: "shared/votecount", locals: {feed_item: feed_item} %><%= link_to vote_down_story_path(feed_item), class: "wiw" do %><i class="icon-wiw"></i><% end %>
-	<% end %>
+	<span class="vote-btn">
+		<%= link_to vote_up_story_path(feed_item), class: "wir" do %>
+			<i class="icon-wir"></i>
+		<% end %><% if feed_item.upcount > 0 %><%= feed_item.upcount %><% end %>
+	</span>
+	<span class="vote-btn">
+		<%= link_to vote_down_story_path(feed_item), class: "wiw" do %>
+			<i class="icon-wiw"></i>
+		<% end %><% if feed_item.downcount > 0 %><%= feed_item.downcount %><% end %>
+	</span>
 <% end %>

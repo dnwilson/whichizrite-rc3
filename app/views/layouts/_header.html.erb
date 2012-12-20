@@ -17,7 +17,12 @@
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "About", about_path %></li>          
           <% if user_signed_in? %>
-            <li><%= link_to "#{pluralize( "(" + current_user.unseen_alerts.to_s + ")", "Alert")}", notifications_path %></li> 
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= link_to "#{pluralize( "(" + current_user.unseen_alerts.to_s + ")", "Alert")}", notifications_path %><b class="caret"></b>
+              </a>
+              <%= render 'shared/notifications' %>
+            </li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

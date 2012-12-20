@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216164325) do
+ActiveRecord::Schema.define(:version => 20121220033828) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20121216164325) do
     t.string   "content_html"
     t.boolean  "anonymous",                  :default => false
     t.integer  "origin_user_id"
+    t.integer  "upcount",                    :default => 0
+    t.integer  "downcount",                  :default => 0
   end
 
   add_index "stories", ["user_id", "id"], :name => "index_stories_on_user_id_and_id"

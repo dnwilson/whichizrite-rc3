@@ -5,3 +5,8 @@
 <% else %>
 	<span class="votecount" style= "background-color:#33cc00">whichizrite <%= feed_item.votes_for - feed_item.votes_against %></span>
 <% end %>
+
+<%= subscribe_to("/#{current_user.id}/votes") %>
+<% current_user.all_following.each do |subscriber| %>
+    <%= subscribe_to("/#{subscriber.id}/votes") %>
+<% end %>

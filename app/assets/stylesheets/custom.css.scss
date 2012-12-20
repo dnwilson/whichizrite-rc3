@@ -28,7 +28,7 @@ $grayLighter: #f9f9f9;
 $gray: #999999;
 $grayDarker: #666666;
 $lightGreen: #33cc00;
-$lighterGreen: #33aa00;
+$lighterGreen: #7ac40a;
 
 
 //@shadow: 0 1px 3px rgba(0,0,0,.25);
@@ -579,6 +579,7 @@ ol.stories{
   background-position: 0px -16px;
   background-repeat: no-repeat;
   text-decoration: none;
+  margin-top: -3px;
   &:hover{
     background-position: -16px -16px;
   }
@@ -594,6 +595,7 @@ ol.stories{
   background-position: 0px 0px;
   background-repeat: no-repeat;
   text-decoration: none;
+  margin-top: -3px;
   &:hover{
     background-position: -16px 0px;
   }
@@ -603,6 +605,8 @@ ol.stories{
   background-color: $grayMediumLight;
   padding: 3px;
   margin-left: 5px;
+  height: 20px;
+  display: inline-block;
   -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
@@ -1010,4 +1014,24 @@ textarea#story_content{
  font-family: questrialregular;
  width: 120px;
   display: inline-block;
+}
+
+.vote-btn{
+  background-color: $lightGray;
+  padding: 3px;
+  margin-left: 5px;
+  text-align: center;
+  display: inline-block;
+  min-width:30px;
+  -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+  a{    
+    font-size: 0.8em;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover{
+      text-decoration: none;
+    }
+  }
 }

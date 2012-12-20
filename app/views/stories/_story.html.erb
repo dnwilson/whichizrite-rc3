@@ -2,7 +2,7 @@
 	<span class="title">
 		<strong><%= link_to story.title, story_path(story) %></strong>
 		<span class="delete">
-			<% if current_user.id == story.origin_user_id %>
+			<% if user_signed_in? && current_user.id == story.origin_user_id %>
 				<%= link_to story, method: :delete,
 									data: {confirm: "You user?"},
 									title: story.content do %>
@@ -25,7 +25,7 @@
 		<span class="vote-<%= story.id %>">
 			<%= render partial: "shared/vote", locals: {feed_item: story} %>	
 		</span>
-		<% if current_user.following?(story.user) %>
+		<% if user_signed_in? && current_user.following?(story.user) %>
 			<span class="comment-btn">
 				<%= link_to story_path(story) do %>comments (<%= story.comments.count %>)
 				<i class="icon-comments"></i><% end %>

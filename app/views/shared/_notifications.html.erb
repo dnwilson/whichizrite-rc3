@@ -1,0 +1,14 @@
+<% if current_user.unseen_alerts == 0 %>
+	<ul class="dropdown-menu">
+		<li class="dropdown-links">You have no new notifications</li>
+	</ul>
+<% else %>
+	<% if notifications?(current_user) %>
+		<ul class="dropdown-menu">
+		<% @notifications.limit(10).each do |notification| 
+				sender = User.find(notification.sender_id) %>
+			<li class="dropdown-links notifications"><%= auto_html(message(sender, notification)){link} %> <%= time_ago_in_words(notification.created_at) %> ago</li>
+			<% end %>
+		</ul>
+	<% end %>		
+<% end %>
