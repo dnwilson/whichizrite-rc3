@@ -168,16 +168,25 @@ class User < ActiveRecord::Base
   end
 
   def notify_vote(story)
-    old_alert = Notification.where("receiver_id = #{story.user.id} AND
+    old_alerts = Notification.where("receiver_id = #{story.user.id} AND
                                     sender_id = #{self.id} AND 
                                     notifiable_id = #{story.id} AND
                                     notifiable_type = 'vote'")
-    if old_alert.exists?
+    if old_alerts.empty?
       Notification.new(sender_id: self.id,
-                       receiver_id: story.user.id,
-                       notifiable_id: story.id,
-                       notifiable_type: "vote").save
-    end     
+                         receiver_id: story.user.id,
+                         notifiable_id: story.id,
+                         notifiable_type: "vote").save
+    else
+      old_alerts.each do |f|
+        f.delete
+      end
+      Notification.new(sender_id: self.id,
+                         receiver_id: story.user.id,
+                         notifiable_id: story.id,
+                         notifiable_type: "vote").save
+
+    end    
   end
 
   def unseen_alerts

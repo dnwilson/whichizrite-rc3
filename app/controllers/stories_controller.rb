@@ -55,7 +55,8 @@ class StoriesController < ApplicationController
             else
                 @story.update_attribute("upcount", @story.upcount + 1)
                 @story.save
-            end                
+            end
+            PrivatePub.publish_to("/#{@story.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
             current_user.vote_exclusively_for(@story)            
             current_user.notify_vote(@story)
             respond_to do |format|
@@ -79,6 +80,7 @@ class StoriesController < ApplicationController
                 @story.update_attribute("downcount", @story.downcount + 1)
                 @story.save
             end 
+            PrivatePub.publish_to("/#{@story.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
             current_user.vote_exclusively_against(@story)
             current_user.notify_vote(@story)
             respond_to do |format|

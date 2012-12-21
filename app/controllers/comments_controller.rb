@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
 	def create
         @comment = current_user.comments.create(params[:comment])
         @story = @comment.story
+        PrivatePub.publish_to("/#{@story.user_id}/alerts", "alert('#{current_user.username} commented on your post.');")
         current_user.notify_comment(@story)
         respond_to do |format|
             format.html {redirect_to @comment.story}
