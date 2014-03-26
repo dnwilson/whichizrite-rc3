@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
   attr_accessible :content, :title, :content_image, :content_html, :anonymous
   belongs_to :user
 
-  has_attached_file :content_image, styles: {small:"518x518>", large:"1500x1500>"},
+  has_attached_file :content_image, styles: {small:"600x600#",  large:"1500x1500>"},
                     default_url: "/assets/no-image.png",
                     url:  "/assets/images/users/:user_id/shared/:style/:basename.:extension",
                     path: ":rails_root/public/assets/images/users/:user_id/shared/:style/:basename.:extension"

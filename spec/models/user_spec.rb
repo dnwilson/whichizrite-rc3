@@ -39,7 +39,6 @@ describe User do
 	it{should respond_to(:admin)}
 	it{should respond_to(:username)}
 	it{should respond_to(:avatar)}
-	it{should respond_to(:hide)}
 	it{should respond_to(:sex)}
 	it{should respond_to(:name)}
 	it{should respond_to(:dob)}
@@ -47,6 +46,9 @@ describe User do
 	it{should respond_to(:country_name)}
 	it{should respond_to(:website)}
 	it{should respond_to(:location)}
+	it{should respond_to(:provider)}
+	it{should respond_to(:uid)}
+	it{should respond_to(:private_followable)}
 	it{should respond_to(:login)}
 	it{should respond_to(:feed)}
 	it{should respond_to(:stories)}
@@ -87,12 +89,10 @@ describe User do
 			let(:followed_user) { FactoryGirl.create(:user) }
 
 			before do
-				@user.follow!(followed_user)
+				@user.follow(followed_user)
 				3.times {followed_user.stories.create!(title: "Lorem ipsum", content: "Lorem ipsum")}
 			end
 
-			# its(:feed) { should include(newer_story) }
-			# its(:feed) { should include(older_story) }
 			its(:feed) { should_not include(unfollowed_post) }
 			its(:feed) do
 				followed_user.stories.each do |story|

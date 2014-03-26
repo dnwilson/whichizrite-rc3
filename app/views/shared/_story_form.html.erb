@@ -1,4 +1,5 @@
 <%= simple_form_for(@story, remote: true, :validate => true, :html => { :multipart => true } ) do |f| %>
+  <h4 class="mar-bot20">What's the Scoop</h4>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :title, placeholder: "Title" %>
@@ -7,22 +8,18 @@
     <%= f.text_area :content, placeholder: "What do you want to say..." %>
   </div>
 
-  <span class="story-btn" style="display: block; float: none;">
-    
-    <label class="checkbox">
-      <input id="story_anonymous" label="Post anonymously?" name="story[anonymous]" type="checkbox" value="1"> post anonymously?
-    </label>
+  <div class="row">
+    <div class="btn btn-default btn-file mar-top15 mar-bot15 col-sm-2 col-xs-2">
+      <i class="glyphicon glyphicon-camera"></i> <%= f.file_field :content_image %>
+    </div>
 
-    <span class="fileupload fileupload-new" data-provides="fileupload">
-      <span class="btn btn-file">
-        <span class="fileupload-new"><i class="icon-picture"></i></span>
-        <span class="fileupload-exists">change</span>
-          <input id="story_content_image" name="story[content_image]" placeholder="Upload an image" type="file"></span>
-      <!-- <span class="fileupload-preview"><a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">x</a></span>     -->
-    </span>
+    <div class="mar-top15 col-sm-10 col-xs-10 align-right">
+      <%= f.submit "Post", class: "btn btn-primary submit-btn" %>
+    </div>
+  </div>  
+  
+  <label class="checkbox mar-top10">
+    <input id="story_anonymous" label="Post anonymously?" name="story[anonymous]" type="checkbox" value="1"> post anonymously?
+  </label>
 
-    <span class="submit">
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    </span>
-  </span>
 <% end %>

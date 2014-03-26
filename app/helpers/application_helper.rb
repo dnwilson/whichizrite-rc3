@@ -35,6 +35,16 @@ module ApplicationHelper
 	  	image_tag(user.avatar.url(t), class: "avatar")
 	end
 
+	def votecount(story)
+		if story.votes_for == story.votes_against
+			"-" 
+	  	elsif post.votes_for > story.votes_against 
+	  	  "#{story.votes_for - story.votes_against}"  
+	  	else
+	  	   "#{story.votes_against - story.votes_for}"
+	  	end 
+	end
+
 	def icon_link_to(path, link, opts = {}, link_opts = {})
 		classes = []
 		l = link.to_s

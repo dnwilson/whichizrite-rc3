@@ -1,0 +1,20 @@
+<% if user_signed_in? %>
+  <li class="dropdown alerts">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <%= "#{pluralize( "(" + current_user.unseen_alerts.to_s + ")", "Alert")}" %><i class="fa fa-exclamation-circle"></i>
+    </a>
+    <%= render 'shared/notifications' %>
+  </li>
+  
+  <li class="dropdown-links"><%= link_to "Profile", root_path %></li>
+  <li class="dropdown-links"><%= link_to "Edit Profile", settings_path %></li>
+  <li class="divider"></li>
+  <li class="dropdown-links"><%= link_to "Users", users_path %></li>
+  <li class="divider"></li>
+  <li class="dropdown-links">
+    <%= link_to "Sign out", logout_path, method: "delete" %>
+  </li>
+  </li>
+<% else %>
+  <li><%= link_to "Sign in", login_path %></li>
+<% end %>

@@ -1,50 +1,70 @@
-<div class="row-fluid">
-	<div class="span8">
-		<span class="story-item">
-			<%= link_to avatar_for(@story.user, 'thumb'), @story.user %>
+<section class="single-story">
+	<div class="column full col-sm-12">
+		<div class="right col-sm-8 col-xs8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<%= link_to avatar_for(@story.user, 'thumb'), @story.user, class: "panel-avatar" %>
+					<span class="story-title">
+						<%=  @story.title %>				
+					</span>
+				</div>
+					
+				<div class="story">
+					<span class="content">
+						<% if @story.content_image? %>
+							<span class="story-image">
+								<%= image_tag @story.content_image.url(:small) %>
+							</span>
+						<% end %>
 
-			<span class="username">
-				<%= link_to @story.user.username, @story.user %>
-			</span>
-			<span class="delete">
-				<% if user_signed_in? && current_user.id == (@story.origin_user_id) %>
-					<%= link_to @story, method: :delete,
-											data: {confirm: "You sure!"},
-											title:@story.title do %>
-						<i class="icon-remove"></i>
-					<% end %>
-				<% end %>
-			</span>
-			
-			<span class="content">
-				<span class="title">
-					<%=  @story.title %>				
-				</span>
-				<%= @story.content_html %>
-			</span>
+						<div class="panel-body">
+							<span class="details mar-bot20">
+								posted by: <%= link_to @story.user.username, @story.user %>
+								<span class="timestamp">
+									<%= time_ago_in_words(@story.created_at) %> ago.
+								</span>
+								<span class="delete">
+									<% if user_signed_in? && current_user.id == (@story.origin_user_id) %>
+										<%= link_to @story, method: :delete,
+																data: {confirm: "You sure!"},
+																title:@story.title do %>
+											delete
+										<% end %>
+									<% end %>
+								</span>
+							</span>
 
-			<span class="input-bar">
-				<span class="vote-<%= @story.id %>">
-					<%= render partial: "shared/vote", locals: {feed_item: @story} %>		
-				</span>
-				<span class="comment-btn">
-					<%= link_to story_path(@story) do %>comments (<%= @story.comments.count %>)
-					<i class="icon-comments"></i><% end %>
-				</span>
-				<span class="timestamp">
-					Posted <%= time_ago_in_words(@story.created_at) %> ago.
-				</span>
-			</span>
-			<%= render 'shared/comments' %>
+							<div class="mar-top20" id="story-content">
+								<%= @story.content_html %>
+							</div>
+							<hr>
+							<span class="vote-<%= @story.id %>">
+								<%= render partial: "shared/vote", locals: {feed_item: @story} %>		
+							</span>
+						</div>
+					</span>
+				</div> <!-- /story-content -->
+			</div>	<!-- story-panel	 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="comment-header"><%= pluralize(@story.comments.count, "Comment") %></h3>
+				</div>
+			</div>
+			<%= render 'shared/comments' %>	
 			<% if user_signed_in? && (current_user.following?(@story.user) || current_user == @story.user) %>
-				<span class="comment-form">
+				<div class="panel panel-default">
 					<%= render 'shared/comment_form' %>
-				</span>
+				</div>
 			<% end %>
-		</span>			
-	</div>
+		</div>
 
-	<div class="span4">					
-		
+		<div class="col-sm-4 col-xs-4">					
+			
+		</div>
 	</div>
-</div>
+</section>
+
+<script type="text/javascript">$(document).ready(function(){
+	// Target your .container, .wrapper, .post, etc.
+	$("#story-content").fitVids();
+});</script>

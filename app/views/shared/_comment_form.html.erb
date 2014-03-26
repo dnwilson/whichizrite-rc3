@@ -1,11 +1,15 @@
-<%= simple_form_for(@comment, remote: true, :validate => true) do |f| %>
- <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.hidden_field :story_id, value: @story.id %>
-    <%= f.text_area :comment, placeholder: "write a comment..." %>
-  </div>
-  <div class="submit">
-    <%= f.submit "Comment", class: "btn btn-large btn-primary"  %>
-  </div>
+<%= simple_form_for(@comment, remote: true, :validate => true, class: "panel") do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	
+	<%= f.hidden_field :story_id, value: @story.id %>
+	<%= f.text_area :comment, placeholder: "write a comment...", class: "comment-entry" %>
 <% end %>
 
+<script type="text/javascript">
+	$('#comment_comment').keypress(function(e){
+		if (e.which == 13) {
+			$('form#new_comment').submit();
+			return false;
+		}
+	});
+</script>

@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
     before_filter :authenticate_user!, only: [:create, :destroy, :vote_down, :vote_up]
     before_filter :correct_user, only: :destroy
-    # before_filter :can_read, only: :show
+    skip_before_filter :verify_authenticity_token, :only => [:vote_up, :vote_down, :unvote]
 
 	def show
         @story = Story.find(params[:id])
@@ -115,7 +115,8 @@ class StoriesController < ApplicationController
     end
 
     def index
-        @pg_search_documents = PgSearch.multisearch(params[:query]) #.paginate(page: params[:page])
+        @pg_search_documents = PgSearch.multisearch(params[:query])
+        @query = params[:query]
     end
 
     

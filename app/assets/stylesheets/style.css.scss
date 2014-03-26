@@ -1,0 +1,197 @@
+$maingreen: #46a546;
+$lightestGray: #f2f2f2;
+$mainGray: #ddd;
+$gray: darken($mainGray, 15%);
+$darkerGray: darken($mainGray, 35%);
+$darkestGray: #666666;
+$mediumGray: #aaa;
+$red:#ca0000;
+$error: #f00;
+
+body{
+	background-color: #e9eaed;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+	padding: 10px;
+	height: 35px;
+	margin-bottom: 15px;
+}
+
+textarea{
+	height: 160px;
+	padding: 10px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    background-image: none;
+	border: none;
+	text-shadow: none;
+	box-shadow: none;
+	background-color: transparent;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+// Feed
+.new_story{
+	margin-bottom: 0px;
+	.col-xs-10, .col-sm-10{
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+}
+
+.stories{
+	list-style: none;
+	margin: 0px;
+}
+
+.story-heading{
+	.story-title{
+		font-weight: bold;
+		font-size: 20px;
+		margin-left: 20px;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		a{
+			color: #333;
+			&:hover{
+				color: $maingreen;
+				text-decoration: none;
+			}
+		}
+	}
+	.comment{
+		float: right;
+		i{
+			font-size: 18px;
+			padding-right: 10px;
+		}
+	}
+}
+.details{
+	font-size: 12px;
+	font-style: italic;
+	.delete{
+		margin-left: 5px;
+	}
+}
+.vote-items{
+	text-align: center;
+	height: 50px;
+	padding:0px;
+	display: block;	
+	background-color: white;					
+	//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	a{
+		color: $mainGray;
+	}				
+	.like {
+		width: 34%;
+		float: left;
+		height: 50px;
+		a{
+			display: block;
+			line-height: 50px;
+			&:hover{
+				text-decoration: none;
+				color: $maingreen;
+			}
+		}
+	}
+
+	.stats{
+		height: 50px;
+		line-height: 50px;
+		width: 32%;
+		float: left;
+	}
+
+	.dislike{ 
+		width: 34%;
+		float: left;
+		height: 50px;
+		a{				
+			display: block;					
+			line-height: 50px;
+			&:hover{
+				text-decoration: none;
+				color: $red;
+			}
+		}
+	}
+}
+
+//Single Story Page 
+.comment-header{
+	margin: 10px 0;
+}
+.comments-list{
+	list-style: none;
+	margin: 0px;
+	.comment-user{
+		margin-left: 20px;
+		font-size: 16px;
+	}
+}
+
+.new_comment{
+	margin: 20px;
+}
+
+
+//Profile Page
+.profile{
+	a.btn.btn-large{
+		width: 100%;
+		border-radius: 0px;
+	}
+	.about{
+		i{
+			margin-right: 20px;
+		}
+	}
+}
+
+.stats{
+	font-size: 12px;
+	text-align: center;
+	.followers{
+		padding: 5px;
+	}
+	.following{
+		padding: 5px;
+		border-left: 1px solid #555;
+		border-right: 1px solid #555;
+	}
+	.story-count{
+		padding: 5px;
+	}
+}
+
+//Signup Page
+.signup{
+	.btn-file{
+		background-color: $maingreen;
+		height: 35px;
+	}
+	.submit-btn{
+		width: 100%;
+	}
+}

@@ -1,29 +1,66 @@
-<section class="signup-box">
-	<% provide(:title, 'Sign up') %>
-	<h2>Sign up</h2>
+<% provide(:title, 'Sign up') %>
+<section class="signup">
+	<div class="column full col-sm-12">
+		<div class="col-sm-offset-2 col-sm-8">
+			<%= simple_form_for(resource, :as => resource_name, :validate => true, :url => registration_path(resource_name), :html => {class: "panel panel-default"}) do |f| %>
+				<div class="panel-heading">
+					<h2>Sign up</h2>
+				</div>
+				<div class="panel-body mar-top20">
+				    <%= devise_error_messages! %>
 
-	<%= simple_form_for(resource, :as => resource_name, :validate => true, :url => registration_path(resource_name)) do |f| %>
-	    <%= devise_error_messages! %>
+					<%= f.text_field :name, placeholder: "Name" %>
 
-	  	<%= f.label :name %>
-		<%= f.text_field :name %>
+					<%= f.text_field :email, placeholder: "Email"  %>
 
-		<%= f.label :email %>
-		<%= f.text_field :email %>
+					<%= f.password_field :password, placeholder: "Password"  %>
 
-		<%= f.label :password %>
-		<%= f.password_field :password %>
+					<%= f.password_field :password_confirmation, placeholder: "Confirmation"  %>
 
-		<%= f.label :password_confirmation, "Confirmation" %>
-		<%= f.password_field :password_confirmation %>
+					<%= f.text_field :username, placeholder: "Username"  %>
 
-		<%= f.label :username %>
-		<%= f.text_field :username %>
+					<span class="input-group">
+						<span class="input-group-btn">
+							<span class="btn btn-primary btn-file">
+						      <i class="glyphicon glyphicon-camera"></i> <%= f.file_field :avatar %>
+						    </span>
+						</span>
+						<input class="form-control" type="text" readonly >
+					</span>
 
-		<%= f.file_field :avatar %>
+				  	<%= f.submit "Create my account", class: "btn btn-primary mar-top30 submit-btn" %>
 
-	  	<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-	<% end %>
 
-	<%= render "users/shared/links" %>
+					<div class="mar-top20 mar-bot20">
+						<%= render "users/shared/links" %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
 </section>
+
+<script>
+	$(document)
+		.on('change', '.btn-file :file', function() {
+			var input = $(this),
+			numFiles = input.get(0).files ? input.get(0).files.length : 1,
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+			input.trigger('fileselect', [numFiles, label]);
+	});
+	
+	$(document).ready( function() {
+		$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+			
+			var input = $(this).parents('.input-group').find(':text'),
+				log = numFiles > 1 ? numFiles + ' files selected' : label;
+			
+			if( input.length ) {
+				input.val(log);
+			} else {
+				if( log ) alert(log);
+			}
+			
+		});
+	});		
+</script>

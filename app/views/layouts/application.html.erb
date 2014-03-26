@@ -2,26 +2,25 @@
 <html lang="en">
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag  "jquery", "jquery_ujs", "bootstrap", "bootstrap-fileupload", "facebook_js" %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= favicon_link_tag "favicon.ico" %>
+    <%= javascript_include_tag  "jquery", "jquery_ujs", "bootstrap", "facebook_js", "bootstrap.file-input", "jquery.fitvids" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
-  </head>
-  <body>
     <% if user_signed_in? %>
       <%= subscribe_to("/#{current_user.id}/notifications") %>
       <% current_user.stories.each do |story| %>
           <%= subscribe_to("/#{story.id}/alerts") %>
       <% end %>
     <% end %>
-      <%= render 'layouts/header' %>
-      <div class="container">
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-        <%= yield %>
-        <%= render 'layouts/footer' %>
-        <%= debug(params) if Rails.env.development? %>
-      </div>
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

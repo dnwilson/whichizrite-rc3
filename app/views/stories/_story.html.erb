@@ -1,38 +1,55 @@
-<li>
-	<span class="title">
-		<strong><%= link_to story.title, story_path(story) %></strong>
-		<span class="delete">
-			<% if user_signed_in? && current_user.id == story.origin_user_id %>
-				<%= link_to story, method: :delete,
-									data: {confirm: "You user?"},
-									title: story.content do %>
-					<i class="icon-remove"></i>
-				<% end %>
+<li class="panel panel-default" id="<%= story.id %>">
+	
+	<div class="panel-heading story-heading">
+		<%= link_to avatar_for(story.user, 'thumb'), story.user, class: "panel-avatar" %>
+		<span class="story-title"><%= link_to story.title, story_path(story) %></span>
+		
+		<span class="comment mar-top15">
+			<%= link_to story_path(story) do %><i class="fa fa-comment"></i><%= story.comments.count %>
 			<% end %>
 		</span>
-	</span>
-
-	<span class="content">
-		<% if story.content_image? %>
+	</div>
+	<div class="story-<%= story.id %>">
+		<span class="content">
+			<% if story.content_image? %>
 				<span class="story-image">
 					<%= image_tag story.content_image.url(:small) %>
 				</span>
 			<% end %>
-		<%= story.content_html %>
-	</span>
 
-	<span class="input-bar">
-		<span class="vote-<%= story.id %>">
-			<%= render partial: "shared/vote", locals: {feed_item: story} %>	
+			<div class="panel-body">
+				<span class="details mar-bot20">
+					posted by: <%= link_to story.user.username, story.user %>
+					<span class="timestamp">
+						<%= time_ago_in_words(story.created_at) %> ago.
+					</span>
+					<span class="delete mar-top15">
+						<% if current_user.id == (story.origin_user_id) %>
+							<%= link_to story, method: :delete,
+													data: {confirm: "You sure!"},
+													title: story.title do %>
+								delete
+							<% end %>
+						<% end %>
+					</span>
+				</span>
+				<div class="mar-top20" id="story-content">
+					<%= story.content_html %>
+				</div>
+				<hr>
+				<div class="vote-<%= story.id %>">
+					<%= render partial: "shared/vote", locals: {feed_item: story} %>		
+				</div>
+				
+			</div>
 		</span>
-		<% if user_signed_in? && current_user.following?(story.user) %>
-			<span class="comment-btn">
-				<%= link_to story_path(story) do %>comments (<%= story.comments.count %>)
-				<i class="icon-comments"></i><% end %>
-			</span>
-		<% end %>
-		<span class="timestamp">
-			Posted <%= time_ago_in_words(story.created_at) %> ago.
-		</span>
-	</span>
+	</div>
 </li>
+
+<span class="comments-<%= story.id %>">
+</span>
+
+<script type="text/javascript">$(document).ready(function(){
+	// Target your .container, .wrapper, .post, etc.
+	$("#story-content").fitVids();
+});</script>

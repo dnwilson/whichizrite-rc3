@@ -233,6 +233,8 @@ Devise.setup do |config|
   config.authentication_keys = [:login]
   config.stretches = Rails.env.test? ? 1 : 10
 
+  config.secret_key = '496b60740474bb77c2a2ad31e01c8a6f5dab0afa501c72916ece6d165e095353618c3325744c3c1280c122ba88354112038aa25f2d6715184540ced55f239543'
+
   require "omniauth-facebook"
   config.omniauth :facebook, "413231458748257", "4953a3e1fbecbfa69589a8c0fe38f2ab", :authorize_params => { :display => 'popup' }, 
   :client_options => {:ssl => {:ca_file => "#{Rails.root}/config/ca-bundle.crt"}}

@@ -1,21 +1,23 @@
-<h1>Stories list</h1>
-<% if @pg_search_documents.any? %>
-	<ol class="stories">
-		<% @pg_search_documents.each do |search_item| 
-		story = Story.find(search_item.searchable_id) %>
-		<li id="<%= story.id %>">
-			<span class="story-<%= story.id %>">
-				<span class="title">				
-					<%= story.title %>
-				</span>
-				<span class="content">				
-					<%= story.content_html %>
-				</span>
-			</span>
-		</li>
-
-	<% end %>
-	</ol>
-<% else %>
-	Could not find anything matching what you searched for.
-<% end %>
+<section class="search-page">
+	<div class="column full col-sm-12">
+		<div class="col-sm-8 col-xs-12">
+			<div class="panel">
+				<h3 class="mar-bot10 mar-top10" style="margin-left: 20px;">Search results for "<%= @query %>"</h3>
+			</div>
+			<% if @pg_search_documents.any? %>
+				<ol class="stories">
+					<% @pg_search_documents.each do |search_item| 
+					story = Story.find(search_item.searchable_id) %>
+						<%= render partial: 'story', locals: {story: story} %>
+				<% end %>
+				</ol>
+			<% else %>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Could not find anything matching what you searched for.</h4>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</section>

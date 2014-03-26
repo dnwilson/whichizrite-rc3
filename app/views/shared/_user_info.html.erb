@@ -1,15 +1,10 @@
-<span class="user-info">
-	<span class="avatar">
-		<a href="<%= user_path(current_user) %>">
-			<%= avatar_for(current_user, "small") %>
-		</a>
-	</span>
-	<span class="user-dets">
-		<h2>
-			<%= current_user.username %>
-		</h2>
-		<span>
-			<%= link_to "view my profile", current_user %>
-		</span><br />
-	</span>	
-</span>
+<div class="panel-thumbnail">
+	<a href="<%= user_path(current_user) %>">
+		<%= avatar_for(current_user, "med") %>
+	</a>
+</div>
+<div class="panel-body">
+	<h1 class="mar-top10 mar-bot10">
+		<%= link_to current_user.username, user_path(current_user) %>
+	</h1>
+</div>	
