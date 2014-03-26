@@ -18,7 +18,7 @@ test:
 
 production:
   adapter: postgresql
-  database: whichizrite2
+  database: whichizrite
   host: localhost
   encoding: unicode
   pool: 5
