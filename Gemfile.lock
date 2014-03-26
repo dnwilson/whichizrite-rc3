@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:dnwilson/acts_as_follower_plus.git
+  remote: git://github.com/dnwilson/acts_as_follower_plus.git
   revision: 95f81438d997ba007b71f9c2cb503d779b198fe7
   specs:
     acts_as_follower_plus (0.0.3)
