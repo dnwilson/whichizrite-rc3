@@ -1,13 +1,26 @@
 <% provide(:title, 'about') %> 
-<div class="center row">
-	<h1>About us</h1>
-	
-	<h2>
-		This is the about page
-	</h2>
-
-	<p>
-		Stuff about whichizrite		
-	</p>
-
+<div class="container">
+	<div class="center row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					 <%= auto_html('Hey! Checkout out: https://www.youtube.com/watch?feature=player_embedded&v=yUmSVcttXnI') { youtube; link(:target => 'blank') } %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					Test2
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					Test3
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

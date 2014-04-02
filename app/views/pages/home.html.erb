@@ -1,54 +1,58 @@
 <% if signed_in? %>
-	<section class="home">
+	<section class="home container">
 		<!-- main area -->
-		<div class="column full col-sm-12">
-			<section class="right col-sm-4 col-xs-12">
-				<div class="panel panel-default">			
-					<%= render 'shared/user_info' %>
-				</div>
-				<div class="panel">
-					<div class="panel-body align-center">
-						<%= render 'shared/stats' %>
+		<div class="col-md-12 col-sm-12">
+			<div class="row">
+				<div class="right col-md-4 col-sm-5 col-xs-12">
+					<div class="panel panel-default user-info">			
+						<%= render 'shared/user_info' %>
 					</div>
-				</div>			
-			</section>
-			<section class="main col-sm-6 col-xs-12">
-				<div class="well">				
-					<%= render 'shared/story_form' %>
+					<div class="panel">
+						<div class="panel-body align-center">
+							<%= render 'shared/stats' %>
+						</div>
+					</div>			
 				</div>
-				<!-- <h1 class="feed-header">latest entries</h1> -->
-				<div class="ajaxreloadstories">	
-					<%= render 'shared/feed' %>
-				</div>				
-			</section>
+				<div class="main col-md-6 col-sm-7 col-xs-12">
+					<div class="well">				
+						<%= render 'shared/story_form' %>
+					</div>
+					<!-- <h1 class="feed-header">latest entries</h1> -->
+					<div class="ajaxreloadstories">	
+						<%= render 'shared/feed' %>
+					</div>				
+				</div>
 
-			<section class="side col-sm-2 hidden-xs">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<%= form_tag search_path, method: :get, :class => "user-search" do %>
-			              <%= text_field_tag :query, params[:query], :placeholder => "Find Users", :value => '', :class => "user-query" %>
-			            <% end %>
+				<div class="side col-md-2 hidden-sm hidden-xs">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<%= form_tag search_path, method: :get, :class => "user-search" do %>
+				              <%= text_field_tag :query, params[:query], :placeholder => "Find Users", :value => '', :class => "user-query" %>
+				            <% end %>
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
 		</div>
 		<!-- end main area -->
 	</section>
 <% else %>
-<section class="home">
-	<div class="column full col-sm-12">
-		<div class="hero-unit center">
-			<h1>welcome to whichizrite</h1>
-			
-			<h2>
-				be heard!
-			</h2>
+<section class="home container">
+	<div class="col-md-12 col-sm-12">
+		<div class="row">
+			<div class="hero-unit align-center">
+				<h1>welcome to whichizrite</h1>
+				
+				<h2>
+					be heard!
+				</h2>
 
-			<p>
-				Our community empowers users to share news stories, ideas, gossip, stories or get opinions from users. Each story has a metric that is calculated by waging positive responses vs negative responses. Click the signup button to join the experience.	
-			</p>
-
-			<%= link_to "Sign up now!", register_path, class: "btn btn-large btn-primary" %>
+				<p>
+					Our community empowers users to share news stories, ideas, gossip, stories or get opinions from users. Each story has a metric that is calculated by waging positive responses vs negative responses. Click the signup button to join the experience.	
+				</p>
+				<br>
+				<%= link_to "Sign up now!", register_path, class: "btn btn-large btn-primary" %>
+			</div>
 		</div>
 	</div>
 </section>

@@ -1,7 +1,7 @@
 <% provide(:title, 'Sign up') %>
-<section class="signup">
-	<div class="column full col-sm-12">
-		<div class="col-sm-offset-2 col-sm-8">
+<section class="signup container">
+	<div class="col-md-12 col-sm-12">
+		<div class="col-md-offset-2 col-md-8 ">
 			<%= simple_form_for(resource, :as => resource_name, :validate => true, :url => registration_path(resource_name), :html => {class: "panel panel-default"}) do |f| %>
 				<div class="panel-heading">
 					<h2>Sign up</h2>
@@ -25,7 +25,7 @@
 						      <i class="glyphicon glyphicon-camera"></i> <%= f.file_field :avatar %>
 						    </span>
 						</span>
-						<input class="form-control" type="text" readonly >
+						<input class="form-control" style="height:35px;border-radius:0px;" type="text" readonly >
 					</span>
 
 				  	<%= f.submit "Create my account", class: "btn btn-primary mar-top30 submit-btn" %>

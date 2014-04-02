@@ -1,25 +1,29 @@
 <%= simple_form_for(@story, remote: true, :validate => true, :html => { :multipart => true } ) do |f| %>
   <h4 class="mar-bot20">What's the Scoop</h4>
+  
   <%= render 'shared/error_messages', object: f.object %>
+  
   <div class="field">
     <%= f.text_field :title, placeholder: "Title" %>
   </div>
+
+  <label class="checkbox mar-top10">
+    <input id="story_anonymous" label="Post anonymously?" name="story[anonymous]" type="checkbox" value="1"> anonymous post?
+  </label>
+
   <div class="field">
     <%= f.text_area :content, placeholder: "What do you want to say..." %>
   </div>
 
   <div class="row">
-    <div class="btn btn-default btn-file mar-top15 mar-bot15 col-sm-2 col-xs-2">
-      <i class="glyphicon glyphicon-camera"></i> <%= f.file_field :content_image %>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <div class="btn btn-default btn-file ">
+        <i class="glyphicon glyphicon-camera"></i> <%= f.file_field :content_image %>
+      </div>
     </div>
 
-    <div class="mar-top15 col-sm-10 col-xs-10 align-right">
+    <div class="col-md-10 col-sm-10 col-xs-10 align-right">
       <%= f.submit "Post", class: "btn btn-primary submit-btn" %>
     </div>
   </div>  
-  
-  <label class="checkbox mar-top10">
-    <input id="story_anonymous" label="Post anonymously?" name="story[anonymous]" type="checkbox" value="1"> post anonymously?
-  </label>
-
 <% end %>

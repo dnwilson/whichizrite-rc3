@@ -1,6 +1,6 @@
-<section class="single-story">
-	<div class="column full col-sm-12">
-		<div class="right col-sm-8 col-xs8">
+<section class="single-story container">
+	<div class="col-sm-12 col-sm-12">
+		<div class="right col-md-8 col-sm-8 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<%= link_to avatar_for(@story.user, 'thumb'), @story.user, class: "panel-avatar" %>
@@ -10,39 +10,37 @@
 				</div>
 					
 				<div class="story">
-					<span class="content">
-						<% if @story.content_image? %>
-							<span class="story-image">
-								<%= image_tag @story.content_image.url(:small) %>
-							</span>
-						<% end %>
+					<% if @story.content_image? %>
+						<span class="story-image">
+							<%= image_tag @story.content_image.url(:small) %>
+						</span>
+					<% end %>
 
-						<div class="panel-body">
-							<span class="details mar-bot20">
-								posted by: <%= link_to @story.user.username, @story.user %>
-								<span class="timestamp">
-									<%= time_ago_in_words(@story.created_at) %> ago.
-								</span>
-								<span class="delete">
-									<% if user_signed_in? && current_user.id == (@story.origin_user_id) %>
-										<%= link_to @story, method: :delete,
-																data: {confirm: "You sure!"},
-																title:@story.title do %>
-											delete
-										<% end %>
+					<div class="panel-body">
+						<span class="details mar-bot20">
+							posted by: <%= link_to @story.user.username, @story.user %>
+							<span class="timestamp">
+								<%= time_ago_in_words(@story.created_at) %> ago.
+							</span>
+							<span class="delete">
+								<% if user_signed_in? && current_user.id == (@story.origin_user_id) %>
+									<%= link_to @story, method: :delete,
+															data: {confirm: "You sure!"},
+															title:@story.title do %>
+										delete
 									<% end %>
-								</span>
+								<% end %>
 							</span>
+						</span>
 
-							<div class="mar-top20" id="story-content">
-								<%= @story.content_html %>
-							</div>
-							<hr>
-							<span class="vote-<%= @story.id %>">
-								<%= render partial: "shared/vote", locals: {feed_item: @story} %>		
-							</span>
+						<div class="mar-top20" id="story-content">
+							<%= @story.content_html %>
 						</div>
-					</span>
+						<hr>
+						<span class="vote-<%= @story.id %>">
+							<%= render partial: "shared/vote", locals: {feed_item: @story} %>		
+						</span>
+					</div>
 				</div> <!-- /story-content -->
 			</div>	<!-- story-panel	 -->
 			<div class="panel panel-default">
@@ -63,8 +61,7 @@
 		</div>
 	</div>
 </section>
-
 <script type="text/javascript">$(document).ready(function(){
 	// Target your .container, .wrapper, .post, etc.
-	$("#story-content").fitVids();
+	$(".story").fitVids();
 });</script>

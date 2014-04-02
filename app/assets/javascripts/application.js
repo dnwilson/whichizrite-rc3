@@ -5,14 +5,22 @@
 // or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
 //
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
+// compiled file.
 //
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
+// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
+// about supported directives.
 //
-//= require bootstrap/dropdown
+//= require jquery
+//= require jquery_ujs
+//= require jquery.min
+//= require jquery.fitvids
 //= require bootstrap/alert
 //= require bootstrap/collapse
+//= require bootstrap/dropdown
+//= require bootstrap/transition
+//= require bootstrap.file-input
+//= require bootstrap-fileupload
+// require_tree .
 
 $(document)
     .on('change', '.btn-file :file', function() {
@@ -26,4 +34,5 @@ $(document).ready( function() {
         console.log(numFiles);
         console.log(label);
     });
+    $(".panel-body").fitVids();
 });

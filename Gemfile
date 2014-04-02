@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,7 +10,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem 'bootstrap-sass', '~> 3.1.1'
 gem 'annotate'
 gem 'country_select'
 gem 'simple_form_fancy_uploads'
@@ -25,26 +24,26 @@ gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'acts_as_follower'
-gem 'acts_as_follower_plus', :git => 'git://github.com/dnwilson/acts_as_follower_plus.git'
+gem 'acts_as_follower_plus', :git => 'git://github.com/dnwilson/acts_as_follower_plus.git', :branch => "rails-3.2"
 gem 'private_pub'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'font-awesome-rails'
+gem 'rails_layout'
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'sass-rails',   '~> 3.2.3'
+gem 'coffee-rails', '~> 3.2.1'
+gem 'font-awesome-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'uglifier', '>= 1.0.3'
 
 group :development, :test do
 	gem 'rspec-rails', '>= 2.10.1'
 	gem 'guard-rspec'
-   gem 'guard-spork'
+   	gem 'guard-spork'
 	gem 'sqlite3'
 end
 

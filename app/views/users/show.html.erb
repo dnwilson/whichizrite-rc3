@@ -1,77 +1,79 @@
 <% provide(:title, @user.name) %>
-<section class="profile">
-  <div class="column full col-sm-12">
-    <div class="col-sm-4 col-xs-12">
-      <div class="panel panel-default">
-        <%= link_to(image_tag(@user.avatar.url(:med)), @user.avatar.url(:med), :data => { :colorbox => true }, class: "panel-thumbail") unless @user.avatar.nil? %>
-        <% if signed_in? %> 
-            <% unless current_user?(@user) %>
-              <div id="follow_form" class="panel-thumbnail">
-                <% if current_user.following?(@user) %>
-                  <%= link_to "Unfollow", unfollow_user_path(@user), :class => "btn btn-large" %>
-                <% elsif current_user.pending?(@user) %>
-                  <%= link_to "Pending", unpend_user_path(@user), :class => "btn btn-large" %>
-                <% else %>
-                  <%= link_to "Follow", follow_user_path(@user), :class => "btn btn-large btn-primary" %>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %> 
-      </div>
-      <div class="panel">
-        <div class="panel-body">
-          <h1 class="mar-top10 mar-bot10"><%= @user.name %></h1>
-          <hr>
-          <%= render 'shared/stats' %>
+<section class="profile container">
+  <div class="col-md-12 col-sm-12">
+    <div class="row">
+      <div class="col-md-4 col-sm-5 col-xs-12">
+        <div class="panel panel-default">
+          <%= link_to(image_tag(@user.avatar.url(:med)), @user.avatar.url(:med), :data => { :colorbox => true }, class: "panel-thumbail") unless @user.avatar.nil? %>
+          <% if signed_in? %> 
+              <% unless current_user?(@user) %>
+                <div id="follow_form" class="panel-thumbnail">
+                  <% if current_user.following?(@user) %>
+                    <%= link_to "Unfollow", unfollow_user_path(@user), :class => "btn btn-large" %>
+                  <% elsif current_user.pending?(@user) %>
+                    <%= link_to "Pending", unpend_user_path(@user), :class => "btn btn-large" %>
+                  <% else %>
+                    <%= link_to "Follow", follow_user_path(@user), :class => "btn btn-large btn-primary" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %> 
         </div>
+        <div class="panel">
+          <div class="panel-body">
+            <h2 class="mar-top10 mar-bot10 align-center"><%= @user.name %></h2>
+            <hr>
+            <%= render 'shared/stats' %>
+          </div>
+        </div>
+
+        <div class="panel panel-default following-panel">
+          <div class="panel-heading">
+            <h4>Following</h4>
+          </div>
+          <% if @user.follows.any? %>
+            <div class="panel-body">        
+              <% @user.follows.each do |followed_user| %>
+                <% user = User.find(followed_user.followable_id) %>
+                <%= link_to avatar_for(user, 'xsml'), user_path(user) %>
+              <% end %>
+            </div> 
+          <% end %>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3 class="mar-top10 mar-bot10">About</h3></div>
+          <div class="panel-body about">
+            <p><% if @user.sex.to_s == "male" %>
+              <i class="fa fa-male"></i><%= @user.sex.to_s %>
+            <% elsif @user.sex.to_s == "female" %>
+              <i class="fa fa-female"></i><%= @user.sex.to_s %>
+            <% end %>
+            </p>
+            <p><i class="fa fa-home"></i><%= @user.location %></p>
+            <p><i class="fa fa-info"></i><%= @user.bio %></p></li>
+          </div>         
+        </div> 
       </div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Following</h4>
-        </div>
-        <% if @user.follows.any? %>
-          <div class="panel-body">        
-            <% @user.follows.each do |followed_user| %>
-              <% user = User.find(followed_user.followable_id) %>
-              <%= link_to avatar_for(user, 'xsml'), user_path(user) %>
-            <% end %>
-          </div> 
+      <div class="col-md-6 col-sm-7 col-xs-12">
+        <% if @user == current_user || !@user.private_followable? || current_user.following?(@user) %>
+          <% if @user.stories.any? %>
+            <ol class="stories">
+              <%= render @user.stories %>
+            </ol>
+            <%= will_paginate @stories %>
+          <% end %>    
+        <% else %>
+          <ol class="stories">
+            <li>
+              <h1>This is a private user</h1>
+            </li>        
+          </ol>
         <% end %>
       </div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="mar-top10 mar-bot10">About</h3></div>
-        <div class="panel-body about">
-          <p><% if @user.sex.to_s == "male" %>
-            <i class="fa fa-male"></i><%= @user.sex.to_s %>
-          <% elsif @user.sex.to_s == "female" %>
-            <i class="fa fa-female"></i><%= @user.sex.to_s %>
-          <% end %>
-          </p>
-          <p><i class="fa fa-home"></i><%= @user.location %></p>
-          <p><i class="fa fa-info"></i><%= @user.bio %></p></li>
-        </div>         
-      </div> 
+      <div class="col-md-3 hidden-sm hidden-xs"></div>
     </div>
-
-    <div class="col-sm-6 col-xs-6">
-      <% if @user == current_user || !@user.private_followable? || current_user.following?(@user) %>
-        <% if @user.stories.any? %>
-          <ol class="stories">
-            <%= render @user.stories %>
-          </ol>
-          <%= will_paginate @stories %>
-        <% end %>    
-      <% else %>
-        <ol class="stories">
-          <li>
-            <h1>This is a private user</h1>
-          </li>        
-        </ol>
-      <% end %>
-    </div>
-
-    <div class="span3"></div>
   </div>
 </section>

@@ -134,23 +134,59 @@
 .panel-avatar{
 	img{
 		border-radius: 50%;
+		display: inline-block;
 		&:hover{
 			opacity: 0.8;
 		}
 	}
 }
 
-.navbar-brand{
-	padding: 0px;
-}
-
 .hero-unit{
 	background-color: #f9f9f9;
+	padding: 30px;
 }
 
 form.user-search{
 	margin-bottom: 0px;
 	#query.user-query{
 		margin-bottom: 0px;
+	}
+}
+
+.nav-bar{
+	background-color: #46a546;
+}
+
+.story-heading a{
+	text-decoration: none;
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+.btn{
+	height: 40px;
+}
+
+.alert{
+	margin-top: 20px;
+}
+
+select{
+	background-image: none;
+}
+
+.navbar-brand {
+	font-size: 30px;
+	font-weight: 200;
+	color: #fff;
+	&:hover{
+		color: #f2f2f2;
+	}
+}
+
+.navbar{
+	.dropdown-toggle:hover{
+		opacity: 0.9;
 	}
 }

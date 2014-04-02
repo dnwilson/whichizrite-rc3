@@ -1,21 +1,73 @@
 $maingreen: #46a546;
+$darkgreen: darken($maingreen, 10%);
 $lightestGray: #f2f2f2;
 $mainGray: #ddd;
-$gray: darken($mainGray, 15%);
-$darkerGray: darken($mainGray, 35%);
-$darkestGray: #666666;
+$darkgray: darken($mainGray, 40%);
+$darkestGray: #333;
 $mediumGray: #aaa;
 $red:#ca0000;
 $error: #f00;
 
-body{
-	background-color: #e9eaed;
+@font-face {
+    font-family: roboto;
+    src: local("roboto"),url("/assets/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
-input[type="text"], input[type="password"], input[type="email"]{
+@font-face{
+	font-family: roboto_bold;
+	src: local("roboto-bold"),url("/assets/roboto/Roboto-Bold.ttf") format("truetype");
+}
+
+@font-face{
+	font-family: roboto_light;
+	src: local("roboto-light"),url("/assets/roboto/Roboto-Light.ttf") format("truetype");
+}
+
+body{
+	background-color: #e9eaed;
+	font-family: roboto_light;
+}
+
+a {
+  color: $maingreen;
+  &:hover{
+  	color: $darkgreen;
+  }
+}
+
+.btn-primary{
+  background-color: $maingreen;
+  border: none;
+  &:hover{
+  	background-color: $darkgreen;
+  	border: none;
+  }
+}
+
+ul.nav-pills li.active a{
+	background-color: $maingreen;
+	&:hover{
+		background-color: $darkgreen;
+	}
+}
+
+ul.nav-pills li {
+	margin-bottom: 10px;
+	a{
+		background-color: white;
+		&:hover{
+			background-color: $mainGray;
+		}
+	}
+}
+
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select{
 	padding: 10px;
-	height: 35px;
+	height: 40px;
 	margin-bottom: 15px;
+	width: 100%;
+	border: 1px solid $mainGray;
 }
 
 textarea{
@@ -50,15 +102,34 @@ textarea{
 // Feed
 .new_story{
 	margin-bottom: 0px;
-	.col-xs-10, .col-sm-10{
-		padding-right: 0px;
-		padding-left: 0px;
+	#story_title{
+		margin-bottom: 0px;
+	}
+	label{
+		color: #777;
 	}
 }
 
 .stories{
 	list-style: none;
 	margin: 0px;
+	padding: 0px;
+	.panel-body{
+		padding-bottom: 0px;
+		hr{
+			margin-bottom: 0px;
+		}
+	}
+}
+
+img.avatar{
+	display: inline-block;
+}
+
+#story{
+	.panel-body{
+		padding-bottom: 0px;
+	}
 }
 
 .story-heading{
@@ -68,9 +139,9 @@ textarea{
 		margin-left: 20px;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		a{
-			color: #333;
+			color: $darkestGray;
 			&:hover{
-				color: $maingreen;
+				color: $darkgray;
 				text-decoration: none;
 			}
 		}
@@ -83,6 +154,15 @@ textarea{
 		}
 	}
 }
+.user-info{
+	.panel-body a{
+		text-decoration: none;
+		&:hover{
+			text-decoration: none;
+		}
+	}
+}
+
 .details{
 	font-size: 12px;
 	font-style: italic;
@@ -105,10 +185,10 @@ textarea{
 	.like {
 		width: 34%;
 		float: left;
-		height: 50px;
+		height: 70px;
 		a{
 			display: block;
-			line-height: 50px;
+			line-height: 70px;
 			&:hover{
 				text-decoration: none;
 				color: $maingreen;
@@ -117,8 +197,8 @@ textarea{
 	}
 
 	.stats{
-		height: 50px;
-		line-height: 50px;
+		height: 70px;
+		line-height: 70px;
 		width: 32%;
 		float: left;
 	}
@@ -126,10 +206,10 @@ textarea{
 	.dislike{ 
 		width: 34%;
 		float: left;
-		height: 50px;
+		height: 70px;
 		a{				
 			display: block;					
-			line-height: 50px;
+			line-height: 70px;
 			&:hover{
 				text-decoration: none;
 				color: $red;
@@ -139,20 +219,39 @@ textarea{
 }
 
 //Single Story Page 
-.comment-header{
-	margin: 10px 0;
-}
-.comments-list{
-	list-style: none;
-	margin: 0px;
-	.comment-user{
-		margin-left: 20px;
-		font-size: 16px;
+.single-story{
+	.story-title{
+		font-size: 24px;
+		font-weight: bold;
+		padding-left: 10px;
 	}
-}
+	.panel-body{
+		padding-bottom: 0px;
+	}
 
-.new_comment{
-	margin: 20px;
+	.comment-header{
+		margin: 10px 0;
+	}
+	.comments-list{
+		list-style: none;
+		margin: 0px;
+		padding-left: 0px;
+		.comment-user{
+			margin-left: 20px;
+			font-size: 16px;
+		}
+	}
+
+	.new_comment{
+		margin: 20px;
+		textarea{
+			border: 1px solid $mainGray;
+			margin-bottom: 0px;
+		}
+	}
+	hr{
+		margin-bottom: 0px;
+	}
 }
 
 
@@ -169,20 +268,20 @@ textarea{
 	}
 }
 
-.stats{
+.profile-stats{
 	font-size: 12px;
 	text-align: center;
-	.followers{
-		padding: 5px;
-	}
-	.following{
-		padding: 5px;
-		border-left: 1px solid #555;
-		border-right: 1px solid #555;
-	}
-	.story-count{
-		padding: 5px;
-	}
+	// .followers{
+	// 	padding: 5px;
+	// }
+	// .following{
+	// 	padding: 5px;
+	// 	border-left: 1px solid #555;
+	// 	border-right: 1px solid #555;
+	// }
+	// .story-count{
+	// 	padding: 5px;
+	// }
 }
 
 //Signup Page
@@ -193,5 +292,11 @@ textarea{
 	}
 	.submit-btn{
 		width: 100%;
+	}
+}
+
+.user-edit{
+	.btn{
+		line-height: 30px;
 	}
 }

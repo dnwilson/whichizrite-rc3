@@ -1,6 +1,27 @@
 <% @user ||= current_user %>
-<div class="stats row">
-	<span class="followers col-sm-4"><%= pluralize(@user.followers_count, "followers") %></span>
-	<span class="following col-sm-4"><%= @user.following_users_count %> following</span>
-	<span class="story-count col-sm-4"><%= pluralize(@user.stories.count, "stories") %></span>
+<div class="profile-stats">
+	<div class="followers col-md-4 col-sm-4 col-xs-4 align-center">
+		<div>
+			<%= @user.followers_count %>
+		</div>
+		<div>
+			<%= "followers".pluralize(@user.followers_count) %>
+		</div>
+	</div>
+	<div class="following col-md-4 col-sm-4 col-xs-4 align-center">
+		<div>
+			<%= @user.following_users_count %>
+		</div>
+		<div>
+			<%= "following".pluralize(@user.following_users_count) %>
+		</div>
+	</div>
+	<div class="story-count col-md-4 col-sm-4 col-xs-4 align-center">
+		<div>
+			<%= @user.stories.count %>
+		</div>
+		<div>
+			<%=  "stories".pluralize(@user.stories.count) %>
+		</div>
+	</div>
 </div>

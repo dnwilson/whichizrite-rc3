@@ -1,26 +1,26 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag "application", media: "all" %>
-    <%= favicon_link_tag "favicon.ico" %>
-    <%= javascript_include_tag  "jquery", "jquery_ujs", "bootstrap", "facebook_js", "bootstrap.file-input", "jquery.fitvids" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Wir2" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Wir2" %>">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>
+  </head>
+  <body>
     <% if user_signed_in? %>
       <%= subscribe_to("/#{current_user.id}/notifications") %>
       <% current_user.stories.each do |story| %>
           <%= subscribe_to("/#{story.id}/alerts") %>
       <% end %>
     <% end %>
-  </head>
-  <body>
-    <%= render 'layouts/header' %>
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
-    <%= yield %>
-    <%= render 'layouts/footer' %>
-    <%= debug(params) if Rails.env.development? %>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+       <%= render 'layouts/messages' %>
+       <%= yield %>
+    </main>
   </body>
 </html>

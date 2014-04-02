@@ -46,7 +46,7 @@ Wir2::Application.routes.draw do
   
   root :to => "pages#home"
 
-  match '/about', to: 'pages#about'
+  get '/about', to: 'pages#about'
   # get "/:id", :to => "users#show", :as => :user
 
   # The priority is based upon order of creation:

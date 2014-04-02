@@ -1,79 +1,82 @@
 <% provide(:title, 'Profile settings') %>
-<div class="row">
-  <div class="edit-nav span4">
-    <ul class="nav nav-pills nav-stacked">
-      <li class="<%= 'active' if current_page?(settings_path) %>">
-        <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
-      </li>
-      <li class="<%= 'active' if current_page?(settings_password_path) %>">
-        <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
-      </li>
-      <li class="<%= 'active' if current_page?(settings_password_path) %>">
-        <%= link_to '<i class="icon-chevron-right"></i> Privacy'.html_safe, settings_privacy_path %>
-      </li>
-    </ul>
-  </div>
-  <div class="user-edit span8">
-    <div class="edit-header">
-      <h2>Profile</h2>
-      <p>Keep this information accurate and up to date</p>
+<section class="settings container">
+  <div class="row">
+    <div class="edit-nav col-md-4 col-sm-4 col-xs-12">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="<%= 'active' if current_page?(settings_path) %>">
+          <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(settings_password_path) %>">
+          <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(settings_password_path) %>">
+          <%= link_to '<i class="icon-chevron-right"></i> Privacy'.html_safe, settings_privacy_path %>
+        </li>
+      </ul>
     </div>
-
-    <h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :method => :put, :multipart => true })  do |f| %>
-      <%= devise_error_messages! %>
-
-    <div class="img-polaroid">
-      <% if @user.avatar.nil? %>
-        <img src="no-image.png">
-        <%= f.label :avatar %>
-        <%= f.file_field :avatar, title:"Upload" %><br />
-        maximum size of 700px (jpg, gif, png)
-      <% else %>
-        <label class="file optional control-label" for="user_avatar">Avatar</label>
-        <div class="fileupload fileupload-new" data-provides="fileupload">
-          <div class="fileupload-new thumbnail" style="width:100px; height:100px;"><img src="<%= @user.avatar.url(:small) %>">
-          </div>
-          <div class="fileupload-preview fileupload-exists thumbnail" style="width:100px; height:100px;"></div>
-          <span class="btn btn-file">
-            <span class="fileupload-new">Select image</span>
-            <span class="fileupload-exists">Change</span>
-              <input id="user_avatar" name="user[avatar]" title="Upload" type="file"></span>
-          <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+      <div class="panel panel-default ">
+        <div class="panel-heading">
+          <h2>Profile</h2>
+          <p>Keep this information accurate and up to date</p>
         </div>
-        <p class="upload-info">maximum size of 700px (jpg, gif, png)</p>
-      <% end %>
-    </div><br />
+        <div class="panel-body">
+          <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :method => :put, :multipart => true })  do |f| %>
+          <%= devise_error_messages! %>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %><br />
+          <div class="img-polaroid">
+            <% if @user.avatar.nil? %>
+              <img src="no-image.png">
+              <%= f.label :avatar %>
+              <%= f.file_field :avatar, title:"Upload" %><br />
+              maximum size of 700px (jpg, gif, png)
+            <% else %>
+              <label class="file optional control-label" for="user_avatar">Avatar</label>
+              <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="fileupload-new thumbnail" style="width:100px; height:100px;"><img src="<%= @user.avatar.url(:small) %>">
+                </div>
+                <div class="fileupload-preview fileupload-exists thumbnail" style="width:100px; height:100px;"></div>
+                <span class="btn btn-file">
+                  <span class="fileupload-new">Select image</span>
+                  <span class="fileupload-exists">Change</span>
+                    <input id="user_avatar" name="user[avatar]" title="Upload" type="file"></span>
+                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+              </div>
+              <p class="upload-info">maximum size of 700px (jpg, gif, png)</p>
+            <% end %>
+          </div><br />
 
-    <%= f.label :username %>
-    <%= f.text_field :username %><br />
+          <%= f.label :name %>
+          <%= f.text_field :name %><br />
 
-    <%= f.label :email %>
-    <%= f.text_field :email %><br />
+          <%= f.label :username %>
+          <%= f.text_field :username %><br />
 
-    <%= f.input :sex, :collection => [['male'], ['female']] %>
+          <%= f.label :email %>
+          <%= f.text_field :email %><br />
 
-    <%= f.label :website %>
-    <%= f.text_field :website %><br />
+          <%= f.input :sex, :collection => [['male'], ['female']] %>
 
-    <%= f.label :bio %>
-    <%= f.text_area :bio %><br />
+          <%= f.label :website %>
+          <%= f.text_field :website %><br />
 
-    <%= f.label :location %>
-    <%= f.text_field :location %><br />
+          <%= f.label :bio %>
+          <%= f.text_area :bio %><br />
 
-    <%= f.label :country %>
-    <%= f.country_select :country_name %><br />
+          <%= f.label :location %>
+          <%= f.text_field :location %><br />
 
-    <div class="center"><%= f.submit "Update", class: "btn btn-large btn-primary" %>
-      <h3>Cancel my account</h3>
+          <%= f.label :country %>
+          <%= f.country_select :country_name %><br />
 
-      <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+          <div class="center"><%= f.submit "Update", class: "btn btn-large btn-primary mar-top15" %>
+            <h3>Cancel my account</h3>
+
+            <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+          </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <% end %>
   </div>
-</div>
+</section>

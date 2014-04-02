@@ -9,47 +9,40 @@
 			<% end %>
 		</span>
 	</div>
-	<div class="story-<%= feed_item.id %>">
-		<span class="content">
-			<% if feed_item.content_image? %>
-				<span class="story-image">
-					<%= image_tag feed_item.content_image.url(:small) %>
-				</span>
-			<% end %>
+	<div class="story-<%= feed_item.id %>" id="story">
+		<% if feed_item.content_image? %>
+			<span class="story-image">
+				<%= image_tag feed_item.content_image.url(:small) %>
+			</span>
+		<% end %>
 
-			<div class="panel-body">
-				<span class="details mar-bot20">
-					posted by: <%= link_to feed_item.user.username, feed_item.user %>
-					<span class="timestamp">
-						<%= time_ago_in_words(feed_item.created_at) %> ago.
-					</span>
-					<span class="delete mar-top15">
-						<% if current_user.id == (feed_item.origin_user_id) %>
-							<%= link_to feed_item, method: :delete,
-													data: {confirm: "You sure!"},
-													title: feed_item.title do %>
-								delete
-							<% end %>
-						<% end %>
-					</span>
+		<div class="panel-body">
+			<span class="details mar-bot20">
+				posted by: <%= link_to feed_item.user.username, feed_item.user %>
+				<span class="timestamp">
+					<%= time_ago_in_words(feed_item.created_at) %> ago.
 				</span>
-				<div class="mar-top20" id="story-content">
-					<%= feed_item.content_html %>
-				</div>
-				<hr>
-				<div class="vote-<%= feed_item.id %>">
-					<%= render partial: "shared/vote", locals: {feed_item: feed_item} %>		
-				</div>
-				
+				<span class="delete mar-top15">
+					<% if current_user.id == (feed_item.origin_user_id) %>
+						<%= link_to feed_item, method: :delete,
+												data: {confirm: "You sure!"},
+												title: feed_item.title do %>
+							delete
+						<% end %>
+					<% end %>
+				</span>
+			</span>
+			<div class="mar-top20" id="story-content">
+				<%= feed_item.content_html %>
 			</div>
-		</span>
+			<hr style="margin-bottom:0px;">
+			<div class="vote-<%= feed_item.id %>">
+				<%= render partial: "shared/vote", locals: {feed_item: feed_item} %>		
+			</div>
+			
+		</div>
 	</div>
 </li>
 
 <span class="comments-<%= feed_item.id %>">
 </span>
-
-<script type="text/javascript">$(document).ready(function(){
-	// Target your .container, .wrapper, .post, etc.
-	$(".content").fitVids();
-});</script>
