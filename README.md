@@ -5,3 +5,8 @@ whichizrite is a new social platform which allows you voice your upload and shar
 Dane Wilson Founder & CEO
 
 ##[Demo](http://whichizrite.herokuapp.com/)
+
+#TODO
+[ ] Optimize Turbolinks
+[ ] Ad Management
+[ ] Analytics
