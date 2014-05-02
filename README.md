@@ -6,13 +6,13 @@ Dane Wilson Founder & CEO
 
 ##[Demo](http://whichizrite.herokuapp.com/)
 
-###Admin
-email: info@whichizrite.com
-password: foobar
+####Admin
+email: info@whichizrite.com <br />
+password: foobar <br />
 
-###User
-email: tester1@whichizrite.com
-password: foobar
+####User
+email: tester1@whichizrite.com <br />
+password: foobar <br />
 
 #TODO
 [ ] Optimize Turbolinks
